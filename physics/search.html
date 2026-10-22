@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>搜索 · 物理</title>
+<meta name="description" content="全站搜索：实验、知识点、自测、资料。">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">物</span>
+      <span class="logo-txt">物理实验</span>
+      <span class="logo-sub">人教版八·九年级</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">首页</a>
+      <a href="labs.html">实验</a>
+      <a href="knowledge.html">知识点</a>
+      <a href="resources.html">资料</a>
+      <a href="quiz.html" class="hide-sm">自测</a>
+    </nav>
+    <div class="head-act">
+      <button class="icon-btn" id="theme-btn" aria-label="切换深浅色" title="切换深浅色">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head" style="padding-bottom:8px">
+    <div class="crumb"><a href="index.html">首页</a><span>/</span>搜索</div>
+    <h1>全站搜索</h1>
+    <p class="lead">实验、知识点、自测、资料，一次搜完。</p>
+  </div>
+
+  <div class="search search-lg">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+    </svg>
+    <input type="text" id="q" placeholder="如：二氧化碳、中和、金属活动性、第七单元" aria-label="搜索全站" autofocus>
+  </div>
+
+  <div id="out" style="padding:8px 0 72px"></div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span class="fl">物理实验</span>
+    <span>人教版八·九年级 · 教学辅助</span>
+    <span class="spacer"></span>
+    <span id="foot-c">—</span>
+  </div>
+</footer>
+
+<script src="assets/parts.js"></script>
+<script src="data/ex-g8a.js"></script>
+<script src="data/ex-g8b.js"></script>
+<script src="data/ex-g9.js"></script>
+<script src="data/meta.js"></script>
+<script src="data/kd-g8a.js"></script>
+<script src="data/kd-g8b.js"></script>
+<script src="data/kd-g9.js"></script>
+<script src="data/quiz.js"></script>
+<script src="data/resources.js"></script>
+<script>
+(function () {
+  const q = document.getElementById('q');
+  const out = document.getElementById('out');
+
+  const saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.getElementById('theme-btn').addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme
+      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+
+  /* 把知识点摊平成条目 */
+  const KB = [];
+  [...(window.KD_G8A || []), ...(window.KD_G8B || []), ...(window.KD_G9 || [])].forEach(u => {
+    [...u.sections].forEach(s => {
+      const body = s.points.map(p =>
+        [p.t, (p.li || []).join(' '), (p.eq || []).join(' '), p.tip || ''].join(' ')
+      ).join(' ');
+      KB.push({
+        kind: '知识点', unit: u.name, unitId: u.id, title: s.title,
+        text: (body + ' ' + s.title + ' ' + u.name).replace(/<[^>]+>/g, ''),
+        href: 'knowledge.html#' + u.id,
+        note: u.book + ' · ' + s.points.length + ' 个知识点'
+      });
+    });
+  });
+
+  const EX = (window.EXPERIMENTS || []).map(e => ({
+    kind: '实验', title: e.code + ' ' + e.title,
+    text: [e.title, e.unit, e.kind, (e.opening || '')].join(' ').replace(/<[^>]+>/g, ''),
+    href: 'lab.html?id=' + e.id,
+    note: e.book + ' · ' + e.unit + ' · ' + e.kind
+  }));
+
+  const QZ = (window.QUIZZES || []).map(z => ({
+    kind: '自测', title: z.title,
+    text: z.title + ' ' + (z.desc || ''),
+    href: 'quiz.html#' + z.id,
+    note: z.questions.length + ' 题'
+  }));
+
+  const RS = (window.RESOURCES || []).map(r => ({
+    kind: '资料', title: r.title,
+    text: r.title + ' ' + (r.desc || ''),
+    href: r.file, note: r.category + (r.date ? ' · ' + r.date : ''), ext: true
+  }));
+
+  const ALL = [...EX, ...KB, ...QZ, ...RS];
+
+  /* 物理暂不加别名表，按字面匹配 */
+  const ALIAS = {};
+  function termsOf(kw) {
+    if (kw.length < 2) return [kw];
+    const t = [kw];
+    Object.keys(ALIAS).forEach(k => {
+      if (k.includes(kw) || kw.includes(k)) t.push(...ALIAS[k]);
+    });
+    return [...new Set(t.filter(Boolean))];
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  }
+  function mark(text, kw) {
+    if (!kw) return esc(text);
+    const i = text.toLowerCase().indexOf(kw);
+    if (i < 0) return esc(text);
+    return esc(text.slice(0, i)) + '<b class="hl">' + esc(text.slice(i, i + kw.length)) + '</b>' + esc(text.slice(i + kw.length));
+  }
+
+  function render() {
+    const kw = q.value.trim().toLowerCase();
+    if (!kw) {
+      out.innerHTML = `<div class="empty-hint">
+        <div class="eh-t">输入关键词开始</div>
+        <div class="eh-s">可以搜实验名、概念名、章名，如「凸透镜」「浮力」「第十七章」。</div>
+        <div class="eh-tags">
+          ${['凸透镜', '浮力', '欧姆定律', '比热容', '机械效率'].map(t =>
+            `<button class="chip" data-t="${t}">${t}</button>`).join('')}
+        </div>
+      </div>`;
+      out.querySelectorAll('[data-t]').forEach(b => b.addEventListener('click', () => {
+        q.value = b.dataset.t; render();
+      }));
+      document.getElementById('foot-c').textContent = `${ALL.length} 条可搜`;
+      return;
+    }
+
+    const terms = termsOf(kw);
+    const hits = ALL.filter(x => {
+      const t = x.text.toLowerCase();
+      return terms.some(w => t.includes(w));
+    });
+    if (!hits.length) {
+      out.innerHTML = '<div class="loading">没有找到相关内容，换个词试试。</div>';
+      document.getElementById('foot-c').textContent = '0 条';
+      return;
+    }
+
+    const groups = {};
+    hits.forEach(h => { (groups[h.kind] = groups[h.kind] || []).push(h); });
+
+    out.innerHTML = ['实验', '知识点', '自测', '资料'].filter(k => groups[k]).map(k => `
+      <div class="unit-row"><span class="uno">${groups[k].length}</span>
+        <span class="ut">${k}</span><span class="uc">${groups[k].length} 条</span></div>
+      ${groups[k].map(h => `
+        <a class="row" href="${h.href}" ${h.ext ? 'target="_blank" rel="noopener"' : ''}>
+          <span class="row-no">${h.kind === '实验' ? 'LAB' : h.kind === '资料' ? 'DOC' : h.kind === '自测' ? 'QUIZ' : 'KB'}</span>
+          <span class="row-t">${mark(h.title, kw)}</span>
+          <span class="row-d">${esc(h.note || '')}</span>
+          <span class="row-x">${h.ext ? '↗' : '→'}</span>
+        </a>`).join('')}`).join('');
+
+    document.getElementById('foot-c').textContent = `${hits.length} 条结果`;
+  }
+
+  q.addEventListener('input', render);
+  const init = new URLSearchParams(location.search).get('q');
+  if (init) q.value = init;
+  render();
+})();
+</script>
+</body>
+</html>
