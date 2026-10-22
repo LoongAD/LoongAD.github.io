@@ -146,5 +146,19 @@
   render();
 })();
 </script>
+
+<script>
+/* 访客统计（Vercount，免注册，国内直连） */
+(function () {
+  var host = document.querySelector('.site-foot .wrap') || document.querySelector('.foot .wrap');
+  if (host) {
+    var s = document.createElement('span');
+    s.style.cssText = 'margin-left:auto';
+    s.innerHTML = '本页浏览 <span id="busuanzi_value_page_pv">–</span> 次 · 全站访客 <span id="busuanzi_site_uv">–</span> 人';
+    host.appendChild(s);
+  }
+})();
+</script>
+<script async src="https://cn.vercount.one/js"></script>
 </body>
 </html>
