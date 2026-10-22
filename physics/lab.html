@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>加载中 · 物理实验</title>
+<meta name="description" content="人教版初中物理虚拟实验：参数可调、现象实时反馈、数据自动计算。">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="lab-body">
+<div id="app"><div class="loading">正在加载实验…</div></div>
+
+<script src="assets/parts.js"></script>
+<script src="data/ex-g8a.js"></script>
+<script src="data/meta.js"></script>
+<script src="data/ex-g8b.js"></script>
+<script src="data/ex-g9.js"></script>
+<script src="assets/engine.js"></script>
+<script>
+(function () {
+  const id = new URLSearchParams(location.search).get('id')
+    || (location.hash ? location.hash.slice(1) : '');
+  const list = window.EXPERIMENTS || [];
+  /* 旧链接兼容：编号调整前的 id 仍能打开 */
+  const ALIAS = { s06: 'u6-02', s10: 'd8-02', 'd10-01': 'u3-03', k03: 'k01' };
+  const def = list.find(e => e.id === id)
+    || list.find(e => e.id === ALIAS[id])
+    || list[0];
+
+  if (!def) {
+    document.getElementById('app').innerHTML =
+      '<div class="loading">实验数据没有加载成功。请从<a href="labs.html">实验库</a>进入。</div>';
+    return;
+  }
+  if (id !== def.id) history.replaceState(null, '', 'lab.html?id=' + def.id);
+  LabEngine.mount(def);
+})();
+</script>
+</body>
+</html>
