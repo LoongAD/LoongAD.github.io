@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>教学资料 · 物理</title>
+<meta name="description" content="人教版初中物理教学资料（试卷暂未整理，页面留空备填）。">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">物</span>
+      <span class="logo-txt">物理实验</span>
+      <span class="logo-sub">人教版八·九年级</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">首页</a>
+      <a href="labs.html">实验</a>
+      <a href="knowledge.html">知识点</a>
+      <a href="resources.html" class="on">资料</a>
+      <a href="quiz.html" class="hide-sm">自测</a>
+    </nav>
+    <div class="head-act">
+      <a class="icon-btn" href="search.html" aria-label="搜索" title="搜索">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+        </svg>
+      </a>
+      <button class="icon-btn" id="theme-btn" aria-label="切换深浅色" title="切换深浅色">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <div class="crumb"><a href="index.html">首页</a><span>/</span>资料</div>
+    <h1><span class="idx" id="n-res">38</span>教学资料</h1>
+    <p class="lead">按单元整理的测试卷，含原卷版与解析版。点标题在新标签页打开。</p>
+  </div>
+
+  <div class="filters">
+    <button class="chip on" data-f="all">全部</button>
+    <button class="chip" data-f="上册">上册</button>
+    <button class="chip" data-f="下册">下册</button>
+    <button class="chip" data-f="期中期末">期中期末</button>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+      </svg>
+      <input type="text" id="q" placeholder="搜索试卷名称" aria-label="搜索资料">
+    </div>
+  </div>
+
+  <div id="list" style="padding-bottom:64px"></div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span class="fl">物理实验</span>
+    <span>人教版八·九年级 · 教学辅助</span>
+    <span class="spacer"></span>
+    <span>共 <span id="foot-c">—</span></span>
+  </div>
+</footer>
+
+<script src="data/resources.js"></script>
+<script>
+(function () {
+  const ALL = window.RESOURCES || [];
+  const listEl = document.getElementById('list');
+  const q = document.getElementById('q');
+  let filter = 'all';
+
+  const saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.getElementById('theme-btn').addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme
+      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+
+  /* 从标题里读出单元号：第一单元…第十一单元 / 期中 / 期末 */
+  const CN = ['一','二','三','四','五','六','七','八','九','十','十一'];
+  function groupOf(r) {
+    const t = r.title;
+    const m = t.match(/^第([一二三四五六七八九十]+)单元/);
+    if (m) {
+      const n = CN.indexOf(m[1]) + 1;
+      return { key: `U${n}`, name: `第${m[1]}单元`, book: n <= 6 ? '上册' : '下册', order: n };
+    }
+    if (/期中/.test(t)) return { key: 'MID', name: '期中', book: '期中期末', order: 90 };
+    if (/期末|综合测试|模拟/.test(t)) return { key: 'FIN', name: '期末', book: '期中期末', order: 91 };
+    return { key: 'OTH', name: '其他', book: '其他', order: 99 };
+  }
+  ALL.forEach(r => { r._g = groupOf(r); });
+
+  function match(r) {
+    if (filter === 'all') return true;
+    if (filter === '上册' || filter === '下册') return r._g.book === filter;
+    if (filter === '期中期末') return r._g.book === '期中期末';
+    return true;
+  }
+
+  function render() {
+    const kw = q.value.trim().toLowerCase();
+    const items = ALL.filter(r => match(r) && (!kw || (r.title + (r.desc || '')).toLowerCase().includes(kw)));
+
+    if (!items.length) {
+      listEl.innerHTML = ALL.length ? '<div class="loading">没有匹配的资料。</div>'
+        : `<div class="loading" style="padding:48px 0 80px">
+            <div style="font-size:17px;font-weight:700;margin-bottom:8px">资料整理中</div>
+            <div style="color:var(--muted);font-size:13.5px">试卷、讲义等资料暂未上传。以后把文件放进 <code>files/</code>，在 <code>data/resources.js</code> 里照示例加一条即可，本页会自动列出。</div>
+          </div>`;
+      document.getElementById('foot-c').textContent = '0 份';
+      return;
+    }
+
+    const groups = {};
+    items.forEach(r => {
+      const k = r._g.key;
+      if (!groups[k]) groups[k] = { name: r._g.name, order: r._g.order, list: [] };
+      groups[k].list.push(r);
+    });
+
+    let html = '';
+    Object.keys(groups).sort((a, b) => groups[a].order - groups[b].order).forEach(k => {
+      const g = groups[k];
+      html += `<div class="unit-row"><span class="uno">${k.startsWith('U') ? k.slice(1).padStart(2, '0') : '—'}</span>
+        <span class="ut">${g.name}</span>
+        <span class="uc">${g.list.length} 份</span></div>`;
+      g.list.forEach(r => {
+        html += `<a class="row" href="${r.file}" target="_blank" rel="noopener">
+          <span class="row-no">${r.format || 'DOC'}</span>
+          <span class="row-t">${r.title}</span>
+          <span class="row-d">${r.desc || ''}</span>
+          <span class="row-x">${r.date || ''} ↗</span>
+        </a>`;
+      });
+    });
+
+    if (!html) {
+      html = `<div class="loading" style="padding:48px 0 80px">
+        <div style="font-size:17px;font-weight:700;margin-bottom:8px">资料整理中</div>
+        <div style="color:var(--muted);font-size:13.5px">试卷、讲义等资料暂未上传。以后把文件放进 <code>files/</code>，在 <code>data/resources.js</code> 里照示例加一条即可，本页会自动列出。</div>
+      </div>`;
+    }
+    listEl.innerHTML = html;
+    document.getElementById('foot-c').textContent = `${items.length} 份`;
+  }
+
+  document.querySelectorAll('.chip[data-f]').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.chip[data-f]').forEach(x => x.classList.toggle('on', x === b));
+      filter = b.dataset.f;
+      render();
+    });
+  });
+  q.addEventListener('input', render);
+  document.getElementById('n-res').textContent = ALL.length;
+  render();
+})();
+</script>
+</body>
+</html>
