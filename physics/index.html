@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>物理实验 · 人教版八至九年级</title>
+<meta name="description" content="人教版初中物理：26 个可交互虚拟实验、全册知识点与教学资料。">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="../index.html" title="返回学科总览">
+      <span class="logo-mark">物</span>
+      <span class="logo-txt">物理实验</span>
+      <span class="logo-sub">人教版八·九年级</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html" class="on">首页</a>
+      <a href="labs.html">实验</a>
+      <a href="knowledge.html">知识点</a>
+      <a href="resources.html">资料</a>
+      <a href="quiz.html" class="hide-sm">自测</a>
+    </nav>
+    <div class="head-act">
+      <a class="icon-btn" href="search.html" aria-label="搜索" title="搜索">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+        </svg>
+      </a>
+      <button class="icon-btn" id="theme-btn" aria-label="切换深浅色" title="切换深浅色">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <p class="eyebrow">人教版 · 八年级至九年级</p>
+    <h1>
+      物理<span class="hero-vessel" aria-hidden="true"><svg viewBox="0 0 200 100">
+        <!-- 斜面 + 小车 -->
+        <path d="M8 88 L58 20 L70 88 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+        <circle cx="44" cy="56" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <!-- 凸透镜 -->
+        <path d="M96 20 q14 30 0 60 q-14 -30 0 -60" fill="none" stroke="currentColor" stroke-width="3"/>
+        <line x1="80" y1="50" x2="112" y2="50" stroke="currentColor" stroke-width="1.6" stroke-dasharray="4 3"/>
+        <!-- 电路 -->
+        <rect x="134" y="58" width="54" height="30" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <circle cx="161" cy="58" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/>
+        <line x1="134" y1="73" x2="120" y2="73" stroke="currentColor" stroke-width="2.4"/>
+        <line x1="120" y1="73" x2="120" y2="88" stroke="currentColor" stroke-width="2.4"/>
+      </svg></span>支配着万物
+    </h1>
+    <p class="hero-lead">
+      26 个可动手的虚拟实验、全册 22 章知识点。改一个参数，看现象怎么变；
+      每一组数据都由公式算出来，不是写死的动画。
+    </p>
+    <div class="hero-acts">
+      <a class="btn primary" href="labs.html">进入实验库 →</a>
+      <a class="btn" href="knowledge.html">浏览知识点</a>
+    </div>
+
+    <div class="figures">
+      <div class="figure"><div class="fv" id="f-lab">26</div><div class="fk">虚拟实验</div></div>
+      <div class="figure"><div class="fv" id="f-sec">22</div><div class="fk">教材章数</div></div>
+      <div class="figure"><div class="fv" id="f-pt">—</div><div class="fk">知识点</div></div>
+      <div class="figure"><div class="fv" id="f-eq">—</div><div class="fk">公式</div></div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="labs">
+    <div class="section-head">
+      <span class="idx">01</span>
+      <h2>动手做</h2>
+      <a class="more" href="labs.html">全部 <span id="more-n">26</span> 个 →</a>
+    </div>
+    <div class="rows" id="lab-rows"></div>
+  </section>
+
+  <section class="section wrap" id="kb">
+    <div class="section-head">
+      <span class="idx">02</span>
+      <h2>知识点</h2>
+      <a class="more" href="knowledge.html">全部 <span id="more-sec">22</span> 章 →</a>
+    </div>
+    <p class="muted" style="margin:-8px 0 20px;font-size:15px;max-width:60ch">
+      按教材章序编排，每条按考点组织：要点、公式、易错提醒。可搜索，也可直接打印。
+    </p>
+    <div class="rows" id="kb-rows"></div>
+  </section>
+
+  <section class="section wrap" id="papers">
+    <div class="section-head">
+      <span class="idx">03</span>
+      <h2>教学资料</h2>
+      <a class="more" href="resources.html">全部 <span id="paper-count"></span> →</a>
+    </div>
+    <div class="rows" id="paper-rows"></div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span class="fl">物理实验</span>
+    <span>人教版八·九年级 · 教学辅助</span>
+    <span class="spacer"></span>
+    <span>实验数据为教学模型，不等同真实测量值</span>
+  </div>
+</footer>
+
+<style>
+.hero-vessel {
+  display: inline-block; height: 1.02em; width: 2em;
+  margin: 0 .1em; vertical-align: -.12em;
+  color: var(--ink);
+}
+.hero-vessel svg { width: 100%; height: 100%; }
+</style>
+
+<script src="assets/parts.js"></script>
+<script src="data/ex-g8a.js"></script>
+<script src="data/ex-g8b.js"></script>
+<script src="data/ex-g9.js"></script>
+<script src="data/kd-g8a.js"></script>
+<script src="data/kd-g8b.js"></script>
+<script src="data/kd-g9.js"></script>
+<script src="data/resources.js"></script>
+<script>
+(function () {
+  const saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.getElementById('theme-btn').addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme
+      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+
+  const ALL = window.EXPERIMENTS || [];
+  document.getElementById('f-lab').textContent = ALL.length;
+  document.getElementById('more-n').textContent = ALL.length;
+
+  const U = [...(window.KD_G8A || []), ...(window.KD_G8B || []), ...(window.KD_G9 || [])];
+  let sec = 0, pt = 0;
+  const eq = new Set();
+  U.forEach(u => u.sections.forEach(s => {
+    sec++; pt += s.points.length;
+    s.points.forEach(p => (p.eq || []).forEach(e => eq.add(e)));
+  }));
+  if (sec) {
+    document.getElementById('f-sec').textContent = U.length;
+    document.getElementById('more-sec').textContent = U.length;
+    document.getElementById('f-pt').textContent = pt;
+    document.getElementById('f-eq').textContent = eq.size;
+  }
+
+  const PICKS = ['p5-03', 'p8-02', 'p12-01', 'p17-01'];
+  document.getElementById('lab-rows').innerHTML = PICKS
+    .map(id => ALL.find(e => e.id === id))
+    .filter(Boolean)
+    .map(e => `<a class="row" href="lab.html?id=${e.id}">
+      <span class="row-no">${e.code}</span>
+      <span class="row-t">${e.title}</span>
+      <span class="row-d">${(e.opening || '').replace(/<[^>]+>/g, '')}</span>
+      <span class="row-x">${e.kind} →</span>
+    </a>`).join('');
+
+  document.getElementById('kb-rows').innerHTML = U.slice(0, 4)
+    .map((u, i) => `<a class="row" href="knowledge.html#${u.id}">
+      <span class="row-no">${String(i + 1).padStart(2, '0')}</span>
+      <span class="row-t">${u.name}</span>
+      <span class="row-d">${u.sections.map(s => s.title).join(' · ')}</span>
+      <span class="row-x">${u.sections.length} 节 →</span>
+    </a>`).join('');
+
+  const R = window.RESOURCES || [];
+  document.getElementById('paper-count').textContent = `${R.length} 份`;
+  document.getElementById('paper-rows').innerHTML = R.slice(0, 6).map(r => `
+    <a class="row" href="${r.file}" target="_blank" rel="noopener">
+      <span class="row-no">${r.format || 'DOC'}</span>
+      <span class="row-t">${r.title}</span>
+      <span class="row-d">${r.desc || ''}</span>
+      <span class="row-x">${r.date || ''} ↗</span>
+    </a>`).join('');
+})();
+</script>
+</body>
+</html>
