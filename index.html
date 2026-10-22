@@ -1,204 +1,346 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>CamellIa - Loongad</title><meta name="author" content="Loongad,603988360@qq.com"><meta name="copyright" content="Loongad"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
-<meta property="og:title" content="CamellIa">
-<meta property="og:url" content="http://loongad.github.io/index.html">
-<meta property="og:site_name" content="CamellIa">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://pic.imgdb.cn/item/642277f3a682492fcc2e0753.jpg">
-<meta property="article:author" content="Loongad">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://pic.imgdb.cn/item/642277f3a682492fcc2e0753.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://loongad.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":true,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
-  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '天',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false,
-  percent: {
-    toc: true,
-    rightside: true,
-  }
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'CamellIa',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2023-03-30 09:06:38'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
-  
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
-      const link = document.createElement('link')
-      link.rel = 'stylesheet'
-      link.href = url
-      if (id) link.id = id
-      link.onerror = reject
-      link.onload = link.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        link.onload = link.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(link)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
-        
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
-    
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://pic.imgdb.cn/item/642277f3a682492fcc2e0753.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)"><nav id="nav"><span id="blog-info"><a href="/" title="CamellIa"><span class="site-name">CamellIa</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">CamellIa</h1><div id="site-subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/LoongAD/LoongAD.github.io" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:603988360@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2023/03/28/wo-yu-di-tan/" title="《我与地坛》-书评"><img class="post-bg" src="https://pic.imgdb.cn/item/6422963fa682492fcc637200.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《我与地坛》-书评"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/28/wo-yu-di-tan/" title="《我与地坛》-书评">《我与地坛》-书评</a><div class="article-meta-wrap"><span class="article-meta"><i class="fas fa-thumbtack sticky"></i><span class="sticky">置顶</span><span class="article-meta-separator">|</span></span><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-28T07:10:37.000Z" title="发表于 2023-03-28 15:10:37">2023-03-28</time></span></div><div class="content">我非常喜欢的一个东西，是一个人十三四岁的夏天，在路上捡到一支真枪。因为年少无知，天不怕地不怕，他扣下扳机。没有人死，也没有人受伤。他认为自己开了空枪。后来他三十岁或者更老，走在路上，听到背后有隐隐约约的风声。他停下来，回过身去，子弹正中眉心。
-</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/03/30/sakura/" title="樱花"><img class="post-bg" src="https://pic.imgdb.cn/item/6424df39a682492fcc83669c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="樱花"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/30/sakura/" title="樱花">樱花</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-30T00:56:57.000Z" title="发表于 2023-03-30 08:56:57">2023-03-30</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B2%A7%E5%B0%8F%E5%86%B7/">沧小冷</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E6%B2%A7%E5%B0%8F%E5%86%B7/%E5%A5%B9%E4%B8%8E%E8%BF%87%E5%BE%80/">她与过往</a></span></div><div class="content">折一枝樱花 我想把春天带回家 可沿途的风太大 把花儿都吹散了</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/03/28/Galati/" title="Galati"><img class="post-bg" src="https://pic.imgdb.cn/item/64227b70a682492fcc330f25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Galati"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/28/Galati/" title="Galati">Galati</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-28T05:27:43.000Z" title="发表于 2023-03-28 13:27:43">2023-03-28</time></span></div><div class="content">她是谁，她是我的伽拉缇，她存在于我的臆想中。</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/03/28/inmyeyelove/" title="我眼中爱情的样子"><img class="post-bg" src="https://pic.imgdb.cn/item/642277c7a682492fcc2dd66e.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我眼中爱情的样子"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/28/inmyeyelove/" title="我眼中爱情的样子">我眼中爱情的样子</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-28T04:39:29.000Z" title="发表于 2023-03-28 12:39:29">2023-03-28</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B2%A7%E5%B0%8F%E5%86%B7/">沧小冷</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E6%B2%A7%E5%B0%8F%E5%86%B7/%E5%A5%B9%E4%B8%8E%E8%BF%87%E5%BE%80/">她与过往</a></span></div><div class="content">我时常在想 这世上亿万人 可以碰到一个与之相契合的 该有多么的不容易</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/03/27/ditan/" title="《我与地坛》"><img class="post-bg" src="https://pic.imgdb.cn/item/6424e053a682492fcc8480a3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《我与地坛》"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/27/ditan/" title="《我与地坛》">《我与地坛》</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-27T04:49:06.000Z" title="发表于 2023-03-27 12:49:06">2023-03-27</time></span></div><div class="content">《我与地坛》
-一我在好几篇小说中都提到过一座废弃的古园，实际就是地坛1。许多年前旅游业还没有开展，园子荒芜冷落得如同一片野地，很少被人记起。
-地坛离我家很近。或者说我家离地坛很近。总之，只好认为这是缘分。地坛在我出生前四百多年就座落在那儿了，而自从我的祖母年轻时带着我父亲来到北京，就一直住在离它不远的地方一五十多年间搬过几次家，可搬来搬去总是在它周围，而且是越搬离它越近了。我常觉得这中间有着宿命的味道：仿佛这古园就是为了等我，而历尽沧桑在那儿等待了四百多年。
-它等待我出生，然后又等待我活到最狂妄的年龄上忽地残废了双腿。四百多年里，它一面剥蚀了古殿檐头浮夸的琉璃，淡褪了门壁上炫耀的朱红，坍圮2了一段段高墙又散落了玉砌雕栏，祭坛四周的老柏树愈见苍幽，到处的野草荒藤也都茂盛得自在坦荡。这时候想必我是该来了。十五年前的一个下午，我摇着轮椅进入园中，它为一个失魂落魄的人把一切都准备好了。那时，太阳循着亘古3不变的路途正越来越大，也越红。在满园弥漫的沉静光芒中，一个人更容易看到时间，并看见自己的身影。
-自从那个下午我无意中进了这园子，就再没长久地离开过它。我一下子就理解了它的意图。正如我在一篇小说 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/03/26/neversaygoodnight/" title="不说晚安"><img class="post-bg" src="http://tool.liumingye.cn/bingimg/img.php" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="不说晚安"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/03/26/neversaygoodnight/" title="不说晚安">不说晚安</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-03-26T10:14:03.135Z" title="发表于 2023-03-26 18:14:03">2023-03-26</time></span><span class="article-meta"><span class="article-meta-separator">|</span><i class="fas fa-inbox"></i><a class="article-meta__categories" href="/categories/%E6%B2%A7%E5%B0%8F%E5%86%B7/">沧小冷</a><i class="fas fa-angle-right article-meta-link"></i><a class="article-meta__categories" href="/categories/%E6%B2%A7%E5%B0%8F%E5%86%B7/%E5%A5%B9%E4%B8%8E%E8%BF%87%E5%BE%80/">她与过往</a></span></div><div class="content">以前暗恋是一个人的事后来呀学会了心照不宣渐渐地不再深情久伴
-你说喜欢我的故事不过是湛然长寂提及时总会笑着说忘记
-窗外众星拱月屋内食不知味
-哽咽，难眠余后，不再对你说晚安
-</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://pic.imgdb.cn/item/642277f3a682492fcc2e0753.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Loongad</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">6</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/LoongAD/LoongAD.github.io"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/LoongAD/LoongAD.github.io" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:603988360@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content"><b>知不可乎骤得 , 托遗响于悲风</b></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/03/30/sakura/" title="樱花"><img src="https://pic.imgdb.cn/item/6424df39a682492fcc83669c.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="樱花"/></a><div class="content"><a class="title" href="/2023/03/30/sakura/" title="樱花">樱花</a><time datetime="2023-03-30T00:56:57.000Z" title="发表于 2023-03-30 08:56:57">2023-03-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/28/wo-yu-di-tan/" title="《我与地坛》-书评"><img src="https://pic.imgdb.cn/item/6422963fa682492fcc637200.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《我与地坛》-书评"/></a><div class="content"><a class="title" href="/2023/03/28/wo-yu-di-tan/" title="《我与地坛》-书评">《我与地坛》-书评</a><time datetime="2023-03-28T07:10:37.000Z" title="发表于 2023-03-28 15:10:37">2023-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/28/Galati/" title="Galati"><img src="https://pic.imgdb.cn/item/64227b70a682492fcc330f25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Galati"/></a><div class="content"><a class="title" href="/2023/03/28/Galati/" title="Galati">Galati</a><time datetime="2023-03-28T05:27:43.000Z" title="发表于 2023-03-28 13:27:43">2023-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/28/inmyeyelove/" title="我眼中爱情的样子"><img src="https://pic.imgdb.cn/item/642277c7a682492fcc2dd66e.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我眼中爱情的样子"/></a><div class="content"><a class="title" href="/2023/03/28/inmyeyelove/" title="我眼中爱情的样子">我眼中爱情的样子</a><time datetime="2023-03-28T04:39:29.000Z" title="发表于 2023-03-28 12:39:29">2023-03-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/03/27/ditan/" title="《我与地坛》"><img src="https://pic.imgdb.cn/item/6424e053a682492fcc8480a3.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="《我与地坛》"/></a><div class="content"><a class="title" href="/2023/03/27/ditan/" title="《我与地坛》">《我与地坛》</a><time datetime="2023-03-27T04:49:06.000Z" title="发表于 2023-03-27 12:49:06">2023-03-27</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
-            <i class="fas fa-folder-open"></i>
-            <span>分类</span>
-            
-            </div>
-            <ul class="card-category-list" id="aside-cat-list">
-            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%B2%A7%E5%B0%8F%E5%86%B7/"><span class="card-category-list-name">沧小冷</span><span class="card-category-list-count">3</span></a><ul class="card-category-list child"><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%B2%A7%E5%B0%8F%E5%86%B7/%E5%A5%B9%E4%B8%8E%E8%BF%87%E5%BE%80/"><span class="card-category-list-name">她与过往</span><span class="card-category-list-count">3</span></a></li></ul></li>
-            </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%96%87%E5%AD%A6%E6%96%87%E6%91%98/" style="font-size: 1.1em; color: #999">文学文摘</a> <a href="/tags/%E7%BD%91%E7%BB%9C%E6%96%87%E6%91%98/" style="font-size: 1.1em; color: #999">网络文摘</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/03/"><span class="card-archive-list-date">三月 2023</span><span class="card-archive-list-count">6</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">6</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2023-03-06T16:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">13.3k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-03-30T01:06:38.920Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer" style="background: linear-gradient(20deg, #0062be, #925696, #cc426e, #fb0347)"><div id="footer-wrap"><div class="copyright">&copy;2018 - 2023 By Loongad</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><a href="https://loongad.github.io/">苍 山 负 雪 ，明 烛 天 南</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
-  init: (str) => {
-    window.typed = new Typed('#subtitle', Object.assign({
-      strings: str,
-      startDelay: 300,
-      typeSpeed: 150,
-      loop: true,
-      backSpeed: 50,
-    }, ))
-  },
-  run: (subtitleType) => {
-    if (true) {
-      if (typeof Typed === 'function') {
-        subtitleType()
-      } else {
-        getScript('https://cdn.jsdelivr.net/npm/typed.js/lib/typed.min.js').then(subtitleType)
-      }
-    } else {
-      subtitleType()
-    }
-  }
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>理科实验站 · 物理 / 化学 / 数学</title>
+<meta name="description" content="初中理科虚拟实验站：化学（鲁教版九年级）30 个虚拟实验，物理（人教版八·九年级）26 个虚拟实验，全册知识点与在线自测。">
+<style>
+:root {
+  --paper:   #faf8f3;
+  --paper-2: #f3f0e8;
+  --paper-3: #ebe7dc;
+  --ink:     #1f1d1a;
+  --ink-2:   #4a4740;
+  --muted:   #8a857a;
+  --line:    #e3dfd4;
+  --line-2:  #d6d1c4;
+  --chem:    #b11226;
+  --chem-bg: #fbf1f2;
+  --phys:    #2456c9;
+  --phys-bg: #eef2fc;
+  --math:    #1e7d4f;
+  --math-bg: #edf6f0;
+  --f-sans: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",sans-serif;
+  --f-num:  "Bebas Neue","PingFang SC",sans-serif;
+  --f-serif: "Songti SC","Noto Serif CJK SC","SimSun",serif;
 }
-</script><script>function subtitleType () {
-  if (true) {
-    typedJSFn.init(["或早或晚，我终会在某平凡的一天等来一声枪响","那枪声沉闷至极"])
-  } else {
-    document.getElementById("subtitle").innerHTML = '或早或晚，我终会在某平凡的一天等来一声枪响'
-  }
+html[data-theme="dark"] {
+  --paper:   #171614;
+  --paper-2: #201e1b;
+  --paper-3: #292622;
+  --ink:     #ece9e2;
+  --ink-2:   #b9b4a8;
+  --muted:   #8a857a;
+  --line:    #2e2b26;
+  --line-2:  #3a362f;
+  --chem:    #e05a6c;
+  --chem-bg: #2a1619;
+  --phys:    #7fa2ef;
+  --phys-bg: #161c2a;
+  --math:    #5cb98a;
+  --math-bg: #14211a;
 }
-typedJSFn.run(subtitleType)</script></div><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-fluttering-ribbon.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--f-sans); font-size: 16px; line-height: 1.75;
+  min-height: 100vh;
+}
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+
+/* ---------- 顶栏 ---------- */
+.head {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.head .wrap { display: flex; align-items: center; height: 64px; gap: 14px; }
+.logo { display: flex; align-items: baseline; gap: 10px; }
+.logo-mark {
+  font-family: var(--f-serif); font-weight: 700; font-size: 17px;
+  width: 34px; height: 34px; display: grid; place-items: center;
+  border: 1.6px solid var(--ink); border-radius: 6px; align-self: center;
+  letter-spacing: 0;
+}
+.logo-t { font-weight: 700; font-size: 17px; letter-spacing: .06em; }
+.logo-s { font-size: 12px; color: var(--muted); letter-spacing: .14em; }
+.head .spacer { flex: 1; }
+.icon-btn {
+  width: 36px; height: 36px; display: grid; place-items: center;
+  border: 1px solid var(--line-2); border-radius: 8px;
+  background: transparent; color: var(--ink-2); cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.icon-btn:hover { border-color: var(--ink-2); color: var(--ink); }
+
+/* ---------- Hero ---------- */
+.hero { padding: 88px 0 64px; }
+.eyebrow {
+  font-size: 12.5px; letter-spacing: .34em; color: var(--muted);
+  text-transform: uppercase; margin-bottom: 20px;
+}
+h1 {
+  font-family: var(--f-serif); font-weight: 700;
+  font-size: clamp(34px, 6vw, 54px); line-height: 1.28; letter-spacing: .04em;
+}
+h1 em { font-style: normal; border-bottom: 5px solid var(--ink); padding-bottom: 2px; }
+.lead {
+  margin-top: 22px; max-width: 34em; color: var(--ink-2); font-size: 16.5px;
+}
+.lead b { color: var(--ink); }
+.hero-acts { margin-top: 34px; display: flex; gap: 12px; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 46px; padding: 0 22px; border-radius: 9px;
+  border: 1.4px solid var(--ink); font-size: 15px; font-weight: 600;
+  transition: transform .15s, background .15s, color .15s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn.primary:hover { opacity: .92; }
+.btn.ghost { background: transparent; color: var(--ink); }
+.btn.ghost:hover { background: var(--paper-2); }
+
+/* ---------- 统计 ---------- */
+.figures {
+  margin-top: 52px; display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line-2); border-bottom: 1px solid var(--line-2);
+}
+.figure { padding: 22px 8px 20px; text-align: center; position: relative; }
+.figure + .figure::before {
+  content: ""; position: absolute; left: 0; top: 18%; height: 64%;
+  border-left: 1px solid var(--line);
+}
+.fv { font-family: var(--f-num); font-size: 40px; line-height: 1.1; letter-spacing: .02em; }
+.fk { margin-top: 4px; font-size: 12.5px; color: var(--muted); letter-spacing: .18em; }
+
+/* ---------- 学科卡 ---------- */
+.sec-h { margin: 76px 0 26px; display: flex; align-items: baseline; gap: 14px; }
+.sec-h .no { font-family: var(--f-num); font-size: 15px; color: var(--muted); letter-spacing: .1em; }
+.sec-h h2 { font-family: var(--f-serif); font-size: 26px; font-weight: 700; letter-spacing: .08em; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; padding-bottom: 90px; }
+.card {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--line-2); border-radius: 14px;
+  background: var(--paper);
+  display: flex; flex-direction: column;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(30,26,18,.10); }
+a.card:hover { border-color: currentColor; }
+.card-chem:hover { color: var(--chem); }
+.card-phys:hover { color: var(--phys); }
+.card-math:hover { color: var(--math); }
+.card-top { padding: 30px 28px 0; display: flex; justify-content: space-between; align-items: flex-start; }
+.mark {
+  width: 62px; height: 62px; border-radius: 14px;
+  display: grid; place-items: center;
+  font-family: var(--f-serif); font-size: 28px; font-weight: 700;
+}
+.card-chem .mark { background: var(--chem-bg); color: var(--chem); }
+.card-phys .mark { background: var(--phys-bg); color: var(--phys); }
+.card-math .mark { background: var(--math-bg); color: var(--math); }
+.motif { opacity: .9; }
+.card-body { padding: 22px 28px 8px; flex: 1; }
+.card-body h3 { font-family: var(--f-serif); font-size: 23px; font-weight: 700; letter-spacing: .06em; }
+.card-body .ver { margin-top: 2px; font-size: 12.5px; color: var(--muted); letter-spacing: .1em; }
+.card-body p { margin-top: 12px; font-size: 14.5px; color: var(--ink-2); }
+.card-stats {
+  margin: 18px 28px 0; padding: 14px 0 16px;
+  border-top: 1px dashed var(--line-2);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+}
+.cs .n { font-family: var(--f-num); font-size: 26px; line-height: 1.15; }
+.cs .k { font-size: 11.5px; color: var(--muted); letter-spacing: .12em; }
+.card-foot {
+  padding: 16px 28px 22px; display: flex; align-items: center; justify-content: space-between;
+}
+.go { font-size: 14.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+.card-chem .go { color: var(--chem); }
+.card-phys .go { color: var(--phys); }
+.card-math .go { color: var(--math); }
+.card:hover .go .arr { transform: translateX(4px); }
+.go .arr { display: inline-block; transition: transform .18s; }
+.card.disabled { background: var(--paper-2); }
+.card.disabled .mark { background: var(--paper-3); color: var(--muted); }
+.badge-soon {
+  font-size: 11.5px; letter-spacing: .16em; color: var(--muted);
+  border: 1px solid var(--line-2); border-radius: 99px; padding: 4px 12px;
+}
+
+/* ---------- 卡内背景纹样 ---------- */
+.card::after {
+  content: ""; position: absolute; right: -40px; top: -40px;
+  width: 150px; height: 150px; border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, currentColor 7%, transparent), transparent 70%);
+  pointer-events: none;
+}
+
+/* ---------- 页脚 ---------- */
+.foot { border-top: 1px solid var(--line); padding: 30px 0 44px; }
+.foot .wrap {
+  display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: baseline;
+  font-size: 13px; color: var(--muted);
+}
+.foot .fl { font-weight: 700; color: var(--ink-2); }
+.foot .spacer { flex: 1; }
+
+@media (max-width: 900px) {
+  .cards { grid-template-columns: 1fr; }
+  .figures { grid-template-columns: repeat(2, 1fr); }
+  .figure:nth-child(3)::before { border-left: 0; }
+  .hero { padding: 60px 0 48px; }
+}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="wrap">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">理</span>
+      <span class="logo-t">理科实验站</span>
+      <span class="logo-s">SCIENCE LAB</span>
+    </a>
+    <span class="spacer"></span>
+    <button class="icon-btn" id="theme-btn" aria-label="切换深浅色" title="切换深浅色">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero">
+    <p class="eyebrow">物理 · 化学 · 数学</p>
+    <h1>把课本上的实验，<br>一个一个<em>做出来</em></h1>
+    <p class="lead">
+      每个实验都可以<b>调参数、看现象、读数据</b>——所有数字由公式实时算出，不是写死的动画。
+      配套全册知识点、在线自测与可打印的实验报告。
+    </p>
+    <div class="hero-acts">
+      <a class="btn primary" href="#subjects">选择学科 ↓</a>
+      <a class="btn ghost" href="physics/labs.html">直接进物理实验库</a>
+    </div>
+
+    <div class="figures">
+      <div class="figure"><div class="fv">56</div><div class="fk">虚拟实验</div></div>
+      <div class="figure"><div class="fv">323</div><div class="fk">知识点</div></div>
+      <div class="figure"><div class="fv">19</div><div class="fk">在线自测</div></div>
+      <div class="figure"><div class="fv">3</div><div class="fk">门学科</div></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="subjects">
+    <div class="sec-h"><span class="no">01</span><h2>选一门课</h2></div>
+    <div class="cards">
+
+      <a class="card card-chem" href="chem/">
+        <div class="card-top">
+          <span class="mark">化</span>
+          <svg class="motif" width="72" height="58" viewBox="0 0 72 58" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M28 6 h16 M31 6 v16 L16 46 a7 7 0 0 0 6 10 h28 a7 7 0 0 0 6 -10 L41 22 V6"/>
+            <path d="M23 38 h26" stroke-dasharray="3 4" stroke-width="1.6"/>
+            <circle cx="30" cy="46" r="1.8" fill="currentColor" stroke="none"/>
+            <circle cx="38" cy="49" r="2.4" fill="currentColor" stroke="none"/>
+            <circle cx="44" cy="45" r="1.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>化学</h3>
+          <div class="ver">鲁教版 · 九年级全一册</div>
+          <p>从基本操作到酸碱盐：试剂瓶、锥形瓶、酒精灯都能动手，现象与计量全部按方程式计算。</p>
+        </div>
+        <div class="card-stats">
+          <div class="cs"><div class="n">30</div><div class="k">虚拟实验</div></div>
+          <div class="cs"><div class="n">144</div><div class="k">知识点</div></div>
+          <div class="cs"><div class="n">9</div><div class="k">自测卷</div></div>
+        </div>
+        <div class="card-foot">
+          <span class="go">进入化学站 <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <a class="card card-phys" href="physics/">
+        <div class="card-top">
+          <span class="mark">物</span>
+          <svg class="motif" width="72" height="58" viewBox="0 0 72 58" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 50 L26 12 L34 50"/>
+            <circle cx="24" cy="30" r="4.5"/>
+            <path d="M44 40 q8 -16 0 -32 q-8 16 0 32" />
+            <line x1="38" y1="24" x2="54" y2="24" stroke-dasharray="3 4" stroke-width="1.4"/>
+            <rect x="56" y="40" width="12" height="8" rx="1.5"/>
+            <path d="M56 44 h-4 M68 44 h4" />
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>物理</h3>
+          <div class="ver">人教版 · 八年级至九年级</div>
+          <p>从机械运动到电磁感应：斜面、透镜、电路、磁场，读数与曲线都由物理规律驱动。</p>
+        </div>
+        <div class="card-stats">
+          <div class="cs"><div class="n">26</div><div class="k">虚拟实验</div></div>
+          <div class="cs"><div class="n">179</div><div class="k">知识点</div></div>
+          <div class="cs"><div class="n">10</div><div class="k">自测卷</div></div>
+        </div>
+        <div class="card-foot">
+          <span class="go">进入物理站 <span class="arr">→</span></span>
+        </div>
+      </a>
+
+      <div class="card card-math disabled">
+        <div class="card-top">
+          <span class="mark">数</span>
+          <svg class="motif" width="72" height="58" viewBox="0 0 72 58" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity=".45">
+            <path d="M8 50 L34 12 M8 12 h48 M20 50 h36"/>
+            <circle cx="56" cy="16" r="5"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <h3>数学</h3>
+          <div class="ver">建设中</div>
+          <p>规划中：函数图像、几何变换、概率统计……做好后这里会亮起来。</p>
+        </div>
+        <div class="card-stats">
+          <div class="cs"><div class="n">—</div><div class="k">虚拟实验</div></div>
+          <div class="cs"><div class="n">—</div><div class="k">知识点</div></div>
+          <div class="cs"><div class="n">—</div><div class="k">自测卷</div></div>
+        </div>
+        <div class="card-foot">
+          <span class="badge-soon">敬请期待</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span class="fl">理科实验站</span>
+    <span>化学：鲁教版九年级 · 物理：人教版八~九年级</span>
+    <span class="spacer"></span>
+    <span>个人教学辅助 · 实验数据为教学模型，不等同真实测量值</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.getElementById('theme-btn').addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme
+      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+})();
+</script>
+</body>
+</html>
