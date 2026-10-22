@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>自测 · 物理</title>
+<meta name="description" content="人教版初中物理在线自测，含选择题与填空题，答完即时给解析。">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">物</span>
+      <span class="logo-txt">物理实验</span>
+      <span class="logo-sub">人教版八·九年级</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">首页</a>
+      <a href="labs.html">实验</a>
+      <a href="knowledge.html">知识点</a>
+      <a href="resources.html">资料</a>
+      <a href="quiz.html" class="on">自测</a>
+    </nav>
+    <div class="head-act">
+      <a class="icon-btn" href="search.html" aria-label="搜索" title="搜索">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+        </svg>
+      </a>
+      <button class="icon-btn" id="theme-btn" aria-label="切换深浅色" title="切换深浅色">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="view-list">
+    <div class="page-head">
+      <div class="crumb"><a href="index.html">首页</a><span>/</span>自测</div>
+      <h1><span class="idx" id="n-quiz">9</span>在线自测</h1>
+      <p class="lead">选一套开始。答完立刻判分，每题都带解析。</p>
+    </div>
+    <div id="quiz-list" style="padding-bottom:64px"></div>
+  </div>
+
+  <div id="view-quiz" class="hide">
+    <div class="page-head">
+      <div class="crumb"><a href="quiz.html">自测</a><span>/</span><span id="qz-crumb">—</span></div>
+      <h1 id="qz-title" style="font-size:var(--t-2xl)">—</h1>
+      <p class="lead" id="qz-desc"></p>
+    </div>
+    <div id="qz-body" style="padding-bottom:40px"></div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;padding-bottom:72px">
+      <button class="btn primary" id="qz-submit">提交并查看解析</button>
+      <button class="btn" id="qz-again">再做一遍</button>
+      <a class="btn ghost" href="quiz.html">← 返回列表</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span class="fl">物理实验</span>
+    <span>人教版八·九年级 · 教学辅助</span>
+    <span class="spacer"></span>
+    <span>题目来自日常教学整理</span>
+  </div>
+</footer>
+
+<script src="data/quiz.js"></script>
+<script>
+(function () {
+  const QUIZZES = window.QUIZZES || [];
+  const listView = document.getElementById('view-list');
+  const quizView = document.getElementById('view-quiz');
+  const listEl = document.getElementById('quiz-list');
+  const bodyEl = document.getElementById('qz-body');
+  let cur = null;
+  let picks = {};
+  let checked = false;
+
+  const saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.getElementById('theme-btn').addEventListener('click', () => {
+    const cur2 = document.documentElement.dataset.theme
+      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur2 === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+
+  document.getElementById('n-quiz').textContent = QUIZZES.length;
+
+  const KEY = 'physWrong';
+  const loadWrong = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } };
+  const saveWrong = w => localStorage.setItem(KEY, JSON.stringify(w));
+
+  function wrongItems() {
+    const W = loadWrong();
+    return Object.keys(W).map(k => {
+      const [qid, idx] = k.split('|');
+      const z = QUIZZES.find(x => x.id === qid);
+      if (!z || !z.questions[+idx]) return null;
+      return { key: k, z, q: z.questions[+idx] };
+    }).filter(Boolean);
+  }
+
+  listEl.innerHTML = QUIZZES.map((z, i) => `
+    <a class="row" href="#${z.id}" data-id="${z.id}">
+      <span class="row-no">${String(i + 1).padStart(2, '0')}</span>
+      <span class="row-t">${z.title}</span>
+      <span class="row-d">${z.desc || ''}</span>
+      <span class="row-x">${z.questions.length} 题 →</span>
+    </a>`).join('') + (wrongItems().length ? `
+    <a class="row wrong-row" href="#wrong" data-id="wrong">
+      <span class="row-no">错</span>
+      <span class="row-t">错题本</span>
+      <span class="row-d">做错的题自动收进来，重做一遍，对了就移出。</span>
+      <span class="row-x">${wrongItems().length} 题 →</span>
+    </a>` : '');
+
+  listEl.querySelectorAll('a[data-id]').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); open(a.dataset.id); });
+  });
+
+  function open(id) {
+    if (id === 'wrong') {
+      const items = wrongItems();
+      if (!items.length) return;
+      cur = {
+        id: 'wrong', title: '错题本', desc: `共 ${items.length} 题，来自你做错的套卷。`,
+        __keys: items.map(x => x.key),
+        questions: items.map(x => x.q)
+      };
+    } else {
+      cur = QUIZZES.find(z => z.id === id);
+    }
+    if (!cur) return;
+    picks = {}; checked = false;
+    listView.classList.add('hide');
+    quizView.classList.remove('hide');
+    document.getElementById('qz-crumb').textContent = cur.title;
+    document.getElementById('qz-title').textContent = cur.title;
+    document.getElementById('qz-desc').textContent = cur.desc || '';
+    history.replaceState(null, '', '#' + id);
+    renderQuiz();
+    scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function renderQuiz() {
+    bodyEl.innerHTML = cur.questions.map((q, i) => {
+      if (q.type === 'blank') {
+        const ok = checked && (q.answer || []).some(a =>
+          (picks[i] || '').trim().replace(/\s/g, '') === a.replace(/\s/g, ''));
+        return `<div class="quiz-q">
+          <div class="qn">Q${i + 1} · 填空</div>
+          <div class="qt">${q.q.replace(/____/g, '<span style="border-bottom:1.5px solid var(--accent);padding:0 24px"></span>')}</div>
+          <input type="text" data-i="${i}" value="${picks[i] || ''}" placeholder="填答案"
+                 style="max-width:320px;font-family:var(--f-sans)">
+          ${checked ? `<div class="quiz-exp"><b class="${ok ? 'r-ok' : 'r-bad'}">${ok ? '正确' : '不正确'}</b>　
+            参考答案：${(q.answer || []).join(' / ')}<br>${q.explain || ''}</div>` : ''}
+        </div>`;
+      }
+      return `<div class="quiz-q">
+        <div class="qn">Q${i + 1}</div>
+        <div class="qt">${q.q}</div>
+        ${q.options.map((o, k) => {
+          const picked = picks[i] === k;
+          let cls = picked ? 'on' : '';
+          if (checked) {
+            if (k === q.answer) cls = 'ok';
+            else if (picked) cls = 'bad';
+            else cls = '';
+          }
+          return `<div class="quiz-opt ${cls}" data-i="${i}" data-k="${k}">
+            <span class="ok-i">${String.fromCharCode(65 + k)}</span><span>${o.replace(/^[A-D][.、]\s*/, '')}</span>
+          </div>`;
+        }).join('')}
+        ${checked ? `<div class="quiz-exp"><b class="${picks[i] === q.answer ? 'r-ok' : 'r-bad'}">
+          ${picks[i] === q.answer ? '正确' : '正确答案：' + String.fromCharCode(65 + q.answer)}</b>　
+          ${q.explain || ''}</div>` : ''}
+      </div>`;
+    }).join('');
+
+    bodyEl.querySelectorAll('.quiz-opt').forEach(el => {
+      el.addEventListener('click', () => {
+        if (checked) return;
+        picks[+el.dataset.i] = +el.dataset.k;
+        renderQuiz();
+      });
+    });
+    bodyEl.querySelectorAll('input[data-i]').forEach(inp => {
+      inp.addEventListener('input', () => { picks[+inp.dataset.i] = inp.value; });
+    });
+  }
+
+  document.getElementById('qz-submit').addEventListener('click', () => {
+    checked = true;
+    renderQuiz();
+    const total = cur.questions.length;
+    let right = 0;
+    const W = loadWrong();
+    cur.questions.forEach((q, i) => {
+      let ok = false;
+      if (q.type === 'blank') {
+        ok = (q.answer || []).some(a =>
+          (picks[i] || '').trim().replace(/\s/g, '') === a.replace(/\s/g, ''));
+      } else ok = picks[i] === q.answer;
+      if (ok) right++;
+      const key = cur.__keys ? cur.__keys[i] : cur.id + '|' + i;
+      if (ok) delete W[key]; else W[key] = 1;
+    });
+    saveWrong(W);
+    bodyEl.insertAdjacentHTML('afterbegin', `<div class="concl" style="margin:0 0 24px">
+      <h4>得分 ${Math.round(right / total * 100)} 分</h4>
+      <ul><li>答对 <b>${right}</b> / ${total} 题</li>
+      <li>${right === total ? '全对。' : '看下面的解析，重点看错题的解析。'}</li>
+      <li>${right === total ? '' : '错题已收进<a href="quiz.html#wrong" style="color:var(--accent)">错题本</a>，下次可以直接重做。'}</li></ul>
+    </div>`);
+    scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.getElementById('qz-again').addEventListener('click', () => {
+    picks = {}; checked = false; renderQuiz();
+  });
+
+  if (location.hash) open(location.hash.slice(1));
+  addEventListener('hashchange', () => {
+    const id = location.hash.slice(1);
+    if (id) open(id); else { quizView.classList.add('hide'); listView.classList.remove('hide'); }
+  });
+})();
+</script>
+</body>
+</html>
