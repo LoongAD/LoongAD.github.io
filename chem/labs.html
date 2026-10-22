@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>虚拟实验 · 化学</title>
+<meta name="description" content="鲁教版九年级化学 30 个虚拟实验，点开即可操作。">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">化</span>
+      <span class="logo-txt">化学实验</span>
+      <span class="logo-sub">鲁教版九年级</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">首页</a>
+      <a href="labs.html" class="on">实验</a>
+      <a href="knowledge.html">知识点</a>
+      <a href="resources.html">资料</a>
+      <a href="quiz.html" class="hide-sm">自测</a>
+    </nav>
+    <div class="head-act">
+      <a class="icon-btn" href="search.html" aria-label="搜索" title="搜索">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+        </svg>
+      </a>
+      <button class="icon-btn" id="theme-btn" aria-label="切换深浅色" title="切换深浅色">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <div class="crumb"><a href="index.html">首页</a><span>/</span>实验</div>
+    <h1><span class="idx" id="n-all">30</span>虚拟实验</h1>
+    <p class="lead">按教材顺序排列。每个实验都是独立设计的交互：参数可调、现象实时反馈、数据自动计算。</p>
+  </div>
+
+  <div class="filters">
+    <button class="chip on" data-f="all">全部</button>
+    <button class="chip" data-f="上册">上册</button>
+    <button class="chip" data-f="下册">下册</button>
+    <button class="chip" data-f="课标必做">课标必做</button>
+    <button class="chip" data-f="基本操作">基本操作</button>
+    <button class="chip" data-f="跨学科实践">跨学科实践</button>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+      </svg>
+      <input type="text" id="q" placeholder="搜索实验或单元" aria-label="搜索实验">
+    </div>
+  </div>
+
+  <div id="list"></div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span class="fl">化学实验</span>
+    <span>鲁教版九年级 · 教学辅助</span>
+    <span class="spacer"></span>
+    <span>实验数据为教学模型，不等同真实实验用量</span>
+  </div>
+</footer>
+
+<script src="data/ex-upper.js"></script>
+<script src="data/ex-lower.js"></script>
+<script>
+(function () {
+  const ALL = window.EXPERIMENTS || [];
+  const listEl = document.getElementById('list');
+  const q = document.getElementById('q');
+  let filter = 'all';
+
+  document.getElementById('n-all').textContent = ALL.length;
+
+  const saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.getElementById('theme-btn').addEventListener('click', () => {
+    const cur = document.documentElement.dataset.theme
+      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+
+  function match(e) {
+    if (filter === '上册' || filter === '下册') return e.book === filter;
+    if (filter !== 'all') return e.kind === filter;
+    return true;
+  }
+
+  function render() {
+    const kw = q.value.trim().toLowerCase();
+    const items = ALL.filter(e =>
+      match(e) && (!kw || (e.title + e.unit + e.code).toLowerCase().includes(kw)));
+
+    if (!items.length) {
+      listEl.innerHTML = '<div class="loading">没有匹配的实验。</div>';
+      return;
+    }
+
+    let html = '';
+    let book = '', unit = '', uidx = 0;
+    items.forEach(e => {
+      if (e.book !== book) {
+        book = e.book;
+        unit = '';
+        html += `<div class="book-head"><span class="bt">${book}</span><span class="bl"></span>
+          <span class="bc">${items.filter(x => x.book === book).length} 个实验</span></div>`;
+      }
+      if (e.unit !== unit) {
+        unit = e.unit;
+        uidx++;
+        html += `<div class="unit-row"><span class="uno">${String(uidx).padStart(2, '0')}</span>
+          <span class="ut">${e.unit.replace(/^第.单元\s*/, '')}</span></div>`;
+      }
+      const desc = (e.opening || '').replace(/<[^>]+>/g, '');
+      html += `<a class="row" href="lab.html?id=${e.id}">
+        <span class="row-no">${e.code}</span>
+        <span class="row-t">${e.title}</span>
+        <span class="row-d">${desc}</span>
+        <span class="row-x">${e.studentExp ? '学生实验 ' + e.studentExp + ' · ' : ''}${e.kind} →</span>
+      </a>`;
+    });
+    listEl.innerHTML = html;
+  }
+
+  document.querySelectorAll('.chip[data-f]').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('.chip[data-f]').forEach(x => x.classList.toggle('on', x === b));
+      filter = b.dataset.f;
+      render();
+    });
+  });
+  q.addEventListener('input', render);
+  render();
+})();
+</script>
+</body>
+</html>
