@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>拍照解题 · 化学实验</title>
+  <meta name="author" content="龙">
+<meta name="description" content="拍下化学题，先看思路再分步展开：化学式、方程式自动排版，鲁教版九年级知识点自动关联。">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* ---------------- 拍照解题页 ---------------- */
+.sv-wrap { max-width: 760px; }
+.sv-lead { color: var(--muted); font-size: var(--t-md); margin: 6px 0 20px; max-width: 46ch; }
+
+/* 取图 */
+.sv-pick {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  margin: 8px 0 10px;
+}
+.sv-pick button {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  height: 104px; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--paper-2); color: var(--ink-2); cursor: pointer;
+  font-size: 14px; font-weight: 600; padding: 0 6px;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.sv-pick button:hover { border-color: var(--accent-line); color: var(--accent); }
+.sv-pick button:active { background: var(--accent-bg); }
+.sv-pick svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+.sv-tip { color: var(--faint); font-size: 12.5px; line-height: 1.7; margin: 0; }
+
+/* 卡片 */
+.sv-card {
+  border: 1px solid var(--line); background: var(--paper-2);
+  border-radius: var(--radius); padding: var(--s-4);
+  margin-bottom: var(--s-4);
+}
+.sv-shot { background: var(--paper-3); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
+.sv-shot img { display: block; width: 100%; max-height: 46vh; object-fit: contain; }
+.sv-row { display: flex; gap: 8px; }
+.sv-row .btn { flex: 1; }
+.sv-row .btn.primary { flex: 1.4; }
+
+/* 文字输入 */
+.sv-ta {
+  width: 100%; min-height: 132px; resize: vertical;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--paper); color: var(--ink); padding: 12px;
+  font-family: var(--f-sans); line-height: 1.7; font-size: 16px;
+}
+.sv-ta:focus { outline: none; border-color: var(--accent); }
+
+/* 结果 */
+.sv-res {
+  border: 1px solid var(--line); background: var(--paper-2);
+  border-radius: var(--radius); padding: var(--s-4) var(--s-4) var(--s-5);
+  margin-top: var(--s-4);
+  animation: sv-in .22s ease both;
+}
+@keyframes sv-in { from { opacity: 0; transform: translateY(6px); } }
+.sv-rhead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.sv-type {
+  font-size: 11.5px; letter-spacing: .1em; font-weight: 700;
+  color: var(--accent); background: var(--accent-bg);
+  border: 1px solid var(--accent-line); border-radius: 999px;
+  padding: 3px 10px;
+}
+.sv-mini {
+  border: 0; background: transparent; color: var(--muted);
+  font-size: 12.5px; text-decoration: underline; text-underline-offset: 3px;
+  cursor: pointer; padding: 4px;
+}
+.sv-stem {
+  font-size: 15.5px; line-height: 1.85; color: var(--ink);
+  background: var(--paper); border-left: 2px solid var(--accent-line);
+  padding: 11px 13px; border-radius: 0 var(--radius) var(--radius) 0;
+  white-space: pre-wrap; word-break: break-word;
+}
+.sv-stem sub, .sv-sb sub, .sv-ans sub, .sv-step sub { font-size: .72em; vertical-align: -.25em; }
+.sv-idea {
+  margin: 14px 0 4px; font-size: 14.5px; line-height: 1.8; color: var(--ink-2);
+}
+.sv-idea b, .sv-pit b, .sv-why b {
+  display: inline-block; font-size: 11px; letter-spacing: .08em;
+  color: var(--muted); border: 1px solid var(--line); border-radius: 2px;
+  padding: 1px 5px; margin-right: 7px; vertical-align: 1px;
+}
+.sv-steps { margin: 12px 0 6px; }
+.sv-step { border-top: 1px solid var(--line-2); }
+.sv-step:last-child { border-bottom: 1px solid var(--line-2); }
+.sv-step summary {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 12px 2px; cursor: pointer; list-style: none;
+  font-weight: 600; font-size: 14.5px; line-height: 1.6; color: var(--ink);
+}
+.sv-step summary::-webkit-details-marker { display: none; }
+.sv-n {
+  flex-shrink: 0; width: 21px; height: 21px; margin-top: 1px;
+  display: grid; place-items: center; border-radius: 50%;
+  background: var(--ink); color: var(--paper-2);
+  font-family: var(--f-num); font-size: 12px;
+}
+.sv-step[open] .sv-n { background: var(--accent); }
+.sv-st { flex: 1; }
+.sv-step summary::after {
+  content: "+"; color: var(--faint); font-weight: 400; font-size: 16px; line-height: 1;
+  margin-left: auto; padding-left: 8px;
+}
+.sv-step[open] summary::after { content: "−"; }
+.sv-sb {
+  padding: 0 2px 6px 31px; font-size: 14.5px; line-height: 1.9; color: var(--ink-2);
+  white-space: pre-wrap; word-break: break-word;
+}
+.sv-why {
+  margin: 0 0 12px 31px; padding: 8px 11px;
+  background: var(--paper); border-radius: var(--radius);
+  font-size: 13px; line-height: 1.75; color: var(--muted);
+}
+.sv-ans {
+  display: flex; gap: 10px; align-items: baseline;
+  margin: 16px 0 0; padding: 12px 13px;
+  background: var(--accent-bg); border: 1px solid var(--accent-line);
+  border-radius: var(--radius); font-size: 15.5px; line-height: 1.8; color: var(--ink);
+  font-weight: 600; word-break: break-word;
+}
+.sv-lab { flex-shrink: 0; font-size: 11px; letter-spacing: .1em; color: var(--accent); font-weight: 700; }
+.sv-pit { margin: 12px 0 0; font-size: 13.5px; line-height: 1.8; color: var(--warn); }
+.sv-pit b { color: var(--warn); border-color: var(--warn); }
+.sv-kd {
+  display: inline-block; margin-top: 14px; font-size: 13px; color: var(--info);
+  text-decoration: none; border-bottom: 1px solid currentColor;
+}
+.sv-kd:hover { color: var(--accent); }
+:root[data-theme="dark"] .sv-kd { color: #8ec1e0; }
+.sv-disc { margin-top: 16px; font-size: 11.5px; color: var(--faint); line-height: 1.7; }
+
+/* 反应条件箭头 */
+.eq-arw {
+  display: inline-flex; flex-direction: column; align-items: center;
+  line-height: .9; vertical-align: -.16em; margin: 0 .18em; font-size: .92em;
+}
+.eq-arw em { font-style: normal; font-size: .62em; color: var(--accent); letter-spacing: .02em; }
+
+/* 题干编辑 */
+.sv-stemedit { margin-top: 10px; }
+.sv-stemedit .sv-row { margin-top: 8px; }
+
+/* 载入 / 错误 */
+.skl {
+  height: 12px; border-radius: 2px; margin: 10px 0;
+  background: linear-gradient(90deg, var(--paper-3) 25%, var(--paper) 37%, var(--paper-3) 63%);
+  background-size: 400% 100%; animation: sk 1.3s infinite;
+}
+@keyframes sk { from { background-position: 100% 0; } to { background-position: 0 0; } }
+.sv-load-tip { font-size: 12.5px; color: var(--faint); margin: 14px 0 0; }
+.sv-err { border-color: var(--bad); }
+.sv-errm { font-size: 14px; line-height: 1.8; color: var(--bad); margin: 0 0 14px; }
+
+/* 历史 */
+.sv-hist { margin-top: var(--s-5); }
+.sv-hhead {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 12px; letter-spacing: .1em; color: var(--muted); margin-bottom: 6px;
+}
+.sv-hitem {
+  display: flex; gap: 10px; align-items: baseline; width: 100%;
+  text-align: left; background: transparent; border: 0;
+  border-top: 1px solid var(--line-2); padding: 11px 2px;
+  color: var(--ink-2); font-size: 13.5px; cursor: pointer; line-height: 1.55;
+}
+.sv-hitem:active { background: var(--paper-3); }
+.sv-hd { flex-shrink: 0; font-size: 11px; color: var(--faint); min-width: 3.6em; }
+.sv-ht { flex: 1; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+
+/* 设置面板 */
+.sv-sheet {
+  position: fixed; inset: 0; z-index: 80;
+  background: rgba(26,24,21,.38);
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.sv-sheet[hidden] { display: none; }
+.sv-sheet-in {
+  width: 100%; max-width: 560px; max-height: 88vh; overflow-y: auto;
+  background: var(--paper-2); border-radius: 10px 10px 0 0;
+  padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px));
+  animation: sv-up .22s cubic-bezier(.32,.72,0,1) both;
+}
+@keyframes sv-up { from { transform: translateY(24px); opacity: .6; } }
+@media (min-width: 720px) {
+  .sv-sheet { align-items: center; }
+  .sv-sheet-in { border-radius: 10px; }
+}
+.sv-sheet h2 { font-size: var(--t-lg); margin: 0 0 4px; }
+.sv-sheet .sv-sub { font-size: 12.5px; color: var(--muted); line-height: 1.7; margin: 0 0 16px; }
+.sv-field { margin-bottom: 12px; }
+.sv-field label { display: block; font-size: 12px; color: var(--muted); letter-spacing: .06em; margin-bottom: 5px; }
+.sv-field input, .sv-field select {
+  width: 100%; height: 44px; padding: 0 11px;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--paper); color: var(--ink); font-size: 16px; font-family: var(--f-sans);
+}
+.sv-field input:focus, .sv-field select:focus { outline: none; border-color: var(--accent); }
+.sv-hint { font-size: 12px; color: var(--faint); line-height: 1.7; margin: 6px 0 0; }
+.sv-sheet-act { display: flex; gap: 8px; margin-top: 16px; }
+.sv-sheet-act .btn { flex: 1; }
+.sv-cfg-tip {
+  margin: 2px 0 18px; padding: 10px 12px;
+  background: var(--warn-bg); border: 1px solid #eadcbb; border-radius: var(--radius);
+  font-size: 12.5px; line-height: 1.75; color: var(--warn);
+}
+.sv-cfg-tip b { color: var(--warn); }
+body.sv-lock { overflow: hidden; }
+
+@media (max-width: 420px) {
+  .sv-pick { gap: 8px; }
+  .sv-pick button { height: 92px; font-size: 13px; }
+  .sv-pick svg { width: 22px; height: 22px; }
+  .sv-stem { font-size: 15px; padding: 10px 11px; }
+  .sv-sb, .sv-why { padding-left: 0; margin-left: 0; }
+  .sv-sb { padding: 0 0 6px 31px; }
+  .sv-why { margin: 0 0 12px 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="../index.html" title="龙 · 返回学科总览">
+      <span class="logo-mark">化</span>
+      <span class="logo-txt">化学实验</span>
+      <span class="logo-sub">鲁教版九年级</span>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">首页</a>
+      <a href="labs.html">实验</a>
+      <a href="knowledge.html">知识点</a>
+      <a href="resources.html">资料</a>
+      <a href="quiz.html" class="hide-sm">自测</a>
+      <a href="solve.html" class="on">解题</a>
+    </nav>
+    <div class="head-act">
+      <a class="icon-btn" href="search.html" aria-label="搜索" title="搜索">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+        </svg>
+      </a>
+      <button class="icon-btn" id="btn-cfg" aria-label="接口设置" title="接口设置">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6h.09A1.65 1.65 0 0 0 10 3.09V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+      <button class="icon-btn" id="theme-btn" aria-label="切换深浅色" title="切换深浅色">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap sv-wrap">
+  <div class="page-head">
+    <div class="crumb"><a href="index.html">首页</a><span>/</span>拍照解题</div>
+    <h1>拍照解题</h1>
+    <p class="sv-lead">把化学题拍清楚，先给思路，再一步一步展开。化学式与方程式会自动排好版，讲完还能跳回对应知识点。</p>
+  </div>
+
+  <!-- 取图 -->
+  <section class="sv-card" id="pick-card">
+    <div class="sv-pick">
+      <button type="button" id="btn-camera">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 8.5A2.5 2.5 0 0 1 5.5 6h1.8l1.2-1.6h6.9L16.6 6h1.9A2.5 2.5 0 0 1 21 8.5v9A2.5 2.5 0 0 1 18.5 20h-13A2.5 2.5 0 0 1 3 17.5z"/>
+          <circle cx="12" cy="13" r="3.6"/>
+        </svg>
+        拍照
+      </button>
+      <button type="button" id="btn-album">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4.5" width="18" height="15" rx="2"/>
+          <circle cx="8.6" cy="10" r="1.5"/>
+          <path d="M3.6 17l4.7-4.6 3.5 3.4 3-2.8 5.4 5"/>
+        </svg>
+        相册
+      </button>
+      <button type="button" id="btn-paste">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="7" y="4" width="10" height="3.4" rx="1.2"/>
+          <path d="M6 5.6H5a2 2 0 0 0-2 2V19a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1.6"/>
+          <path d="M9 11h10v8H9z"/>
+        </svg>
+        粘贴 / 文字
+      </button>
+    </div>
+    <input type="file" id="file-camera" accept="image/*" capture="environment" hidden>
+    <input type="file" id="file-album" accept="image/*" hidden>
+    <p class="sv-tip">拍摄建议：题面占满画面、光线均匀、别让手指和反光挡住字。照片只在本机处理，不会上传留存。</p>
+  </section>
+
+  <!-- 预览 -->
+  <section class="sv-card" id="preview-card" hidden>
+    <div class="sv-shot"><img id="preview" alt="题目预览"></div>
+    <div class="sv-row">
+      <button class="btn" type="button" id="btn-repick">重拍</button>
+      <button class="btn primary" type="button" id="btn-analyze">开始讲题 →</button>
+    </div>
+  </section>
+
+  <!-- 文字输入 -->
+  <section class="sv-card" id="text-card" hidden>
+    <label class="sv-field" style="display:block">
+      <span style="display:block;font-size:12px;color:var(--muted);letter-spacing:.06em;margin-bottom:6px">直接输入题目</span>
+      <textarea class="sv-ta" id="txt-input" placeholder="例：向 100 g 质量分数为 7.3% 的稀盐酸中加入过量锌粒，求生成氢气的质量。&#10;&#10;化学式可以直接写 H2SO4、Ca(OH)2。"></textarea>
+    </label>
+    <div class="sv-row" style="margin-top:10px">
+      <button class="btn" type="button" id="btn-text-mode">返回拍照</button>
+      <button class="btn primary" type="button" id="btn-txt-analyze">开始讲题 →</button>
+    </div>
+  </section>
+
+  <p class="sv-cfg-tip" id="cfg-tip" hidden>
+    还没配置讲题接口。<b>点右上角齿轮</b>填入一个 API Key 就能用——密钥只存在你自己这台设备的浏览器里，不会上传。
+  </p>
+
+  <section id="result" aria-live="polite"></section>
+
+  <section class="sv-hist" id="sv-hist" hidden></section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <span class="fl">化学实验</span>
+    <span>鲁教版九年级 · 教学辅助</span>
+    <span class="spacer"></span>
+    <span>图片仅在本机处理，讲解由 AI 生成，请以课本为准</span>
+    <span class="seal" title="龙" aria-label="龙">龙</span>
+  </div>
+</footer>
+
+<!-- 设置面板 -->
+<div class="sv-sheet" id="cfg-sheet" hidden>
+  <div class="sv-sheet-in" role="dialog" aria-modal="true" aria-labelledby="cfg-title">
+    <h2 id="cfg-title">讲题接口设置</h2>
+    <p class="sv-sub">本页直接调用你选择的多模态大模型接口。密钥保存在本机浏览器（localStorage），不会写入站点代码，也不会发给任何第三方。</p>
+
+    <div class="sv-field">
+      <label for="cfg-preset">服务商</label>
+      <select id="cfg-preset">
+        <option value="qwen">通义千问（阿里云百炼）</option>
+        <option value="zhipu">智谱 GLM-4V</option>
+        <option value="ark">火山方舟</option>
+        <option value="custom">自定义（OpenAI 兼容）</option>
+      </select>
+    </div>
+    <div class="sv-field">
+      <label for="cfg-base">接口地址</label>
+      <input type="url" id="cfg-base" placeholder="https://…/v1" autocomplete="off">
+    </div>
+    <div class="sv-field">
+      <label for="cfg-model">模型名</label>
+      <input type="text" id="cfg-model" placeholder="qwen-vl-max-latest" autocomplete="off">
+    </div>
+    <div class="sv-field">
+      <label for="cfg-key">API Key</label>
+      <input type="password" id="cfg-key" placeholder="sk-…" autocomplete="off">
+      <p class="sv-hint" id="cfg-hint"></p>
+    </div>
+
+    <div class="sv-sheet-act">
+      <button class="btn" type="button" id="btn-cfg-clear">清除密钥</button>
+      <button class="btn primary" type="button" id="btn-cfg-save">保存</button>
+    </div>
+    <div class="sv-sheet-act">
+      <button class="btn" type="button" id="cfg-close">关闭</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/solve.js"></script>
+<script>
+/* 主题：与站内其他页保持一致 */
+(function () {
+  var saved = localStorage.getItem('theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+  document.getElementById('theme-btn').addEventListener('click', function () {
+    var cur = document.documentElement.dataset.theme
+      || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var next = cur === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+  });
+})();
+</script>
+
+<script>
+/* 访客统计（Vercount，免注册，国内直连） */
+(function () {
+  var host = document.querySelector('.site-foot .wrap') || document.querySelector('.foot .wrap');
+  if (host) {
+    var s = document.createElement('span');
+    s.style.cssText = 'margin-left:auto';
+    s.innerHTML = '本页浏览 <span id="busuanzi_value_page_pv">–</span> 次 · 全站访客 <span id="busuanzi_value_site_uv">–</span> 人';
+    host.appendChild(s);
+  }
+})();
+</script>
+<script async src="https://cn.vercount.one/js"></script>
+<script src="assets/nav.js" defer></script>
+</body>
+</html>

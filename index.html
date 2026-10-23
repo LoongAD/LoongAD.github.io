@@ -200,12 +200,47 @@ a.card:hover { border-color: currentColor; }
 }
 .seal:hover { opacity: .95; }
 
+
 @media (max-width: 900px) {
   .cards { grid-template-columns: 1fr; }
   .figures { grid-template-columns: repeat(2, 1fr); }
   .figure:nth-child(3)::before { border-left: 0; }
   .hero { padding: 60px 20px 48px; }
 }
+/* ---------- 小标签 ---------- */
+.quick {
+  font-size: 11.5px; letter-spacing: .1em; color: var(--muted);
+  border: 1px solid var(--line-2); border-radius: 99px; padding: 3px 10px;
+}
+
+/* ---------- 移动端 ---------- */
+@media (max-width: 640px) {
+  .hero { padding-top: 40px; padding-bottom: 32px; }
+  .hero h1 { letter-spacing: .02em; }
+  .lead { font-size: 14.5px; }
+  .hero-acts { margin-top: 26px; flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero-acts .btn { width: 100%; height: 46px; }
+  .figures { margin-top: 38px; }
+  .fv { font-size: 32px; }
+  .sec-h { margin: 48px 0 20px; }
+  .sec-h h2 { font-size: 22px; }
+  .cards { padding-bottom: 56px; }
+  .card-top { padding: 22px 20px 0; }
+  .card-body { padding: 16px 20px 8px; }
+  .card-body h3 { font-size: 21px; }
+  .card-stats { margin: 14px 20px 0; }
+  .card-foot { padding: 14px 20px 18px; flex-wrap: wrap; gap: 8px; }
+  .foot { padding: 24px 0 calc(32px + env(safe-area-inset-bottom, 0px)); }
+  .foot .wrap { flex-direction: column; align-items: flex-start; gap: 7px; }
+  .foot .spacer { display: none; }
+  .icon-btn { width: 42px; height: 42px; }
+}
+@media (max-width: 400px) {
+  .figures { grid-template-columns: repeat(2, 1fr); }
+  .figure:nth-child(3)::before { border-left: 0; }
+}
+
+
 </style>
 </head>
 <body>
@@ -236,7 +271,7 @@ a.card:hover { border-color: currentColor; }
     </p>
     <div class="hero-acts">
       <a class="btn primary" href="#subjects">选择学科 ↓</a>
-      <a class="btn ghost" href="physics/labs.html">直接进物理实验库</a>
+      <a class="btn ghost" href="chem/solve.html">拍照解题（化学）</a>
     </div>
 
     <div class="figures">
@@ -274,6 +309,7 @@ a.card:hover { border-color: currentColor; }
         </div>
         <div class="card-foot">
           <span class="go">进入化学站 <span class="arr">→</span></span>
+          <span class="quick">含拍照解题</span>
         </div>
       </a>
 
