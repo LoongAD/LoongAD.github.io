@@ -186,6 +186,7 @@
           <span>鲁教版九年级 · 教学辅助</span>
           <span class="spacer"></span>
           <span>所有数据为教学模型参数，不等同真实实验用量</span>
+          <span class="seal" title="龙" aria-label="龙">龙</span>
         </div>
       </footer>`;
 

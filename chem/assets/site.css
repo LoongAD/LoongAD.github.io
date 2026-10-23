@@ -776,6 +776,20 @@ input:focus-visible, button:focus-visible, a:focus-visible {
 .site-foot .fl { font-weight: 700; color: var(--ink); font-size: var(--t-sm); }
 .site-foot .spacer { flex: 1; }
 
+/* 龙印 */
+.seal {
+  display: inline-grid; place-items: center;
+  width: 20px; height: 20px;
+  border: 1px solid var(--muted); border-radius: 3px;
+  color: var(--muted); font-size: 11px; line-height: 1;
+  font-family: var(--f-serif, serif); opacity: .55;
+  margin-left: var(--s-4, 12px); vertical-align: baseline;
+  user-select: none; cursor: default;
+  transition: opacity .15s;
+}
+.seal:hover { opacity: .95; }
+
+
 /* ============================================================
    小测
    ============================================================ */

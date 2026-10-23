@@ -186,6 +186,7 @@
           <span>人教版八·九年级 · 教学辅助</span>
           <span class="spacer"></span>
           <span>所有数据为教学模型，不等同真实测量值</span>
+          <span class="seal" title="龙" aria-label="龙">龙</span>
         </div>
       </footer>`;
 
