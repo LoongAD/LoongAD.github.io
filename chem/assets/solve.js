@@ -14,6 +14,7 @@
 
   /* ---------------- 接口预设 ---------------- */
   var PRESETS = {
+    silicon:{ base: 'https://api.siliconflow.cn/v1',                    model: 'Qwen/Qwen2.5-VL-7B-Instruct', name: '硅基流动（注册最简单）' },
     qwen:   { base: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen-vl-max-latest', name: '通义千问（阿里云百炼）' },
     zhipu:  { base: 'https://open.bigmodel.cn/api/paas/v4',              model: 'glm-4v-plus',        name: '智谱 GLM-4V' },
     ark:    { base: 'https://ark.cn-beijing.volces.com/api/v3',          model: '',                   name: '火山方舟（需填推理接入点 ID）' },
@@ -396,8 +397,10 @@
     var p = PRESETS[k] || PRESETS.qwen;
     $('#cfg-base').value = (cfg && cfg.preset === k && cfg.base) ? cfg.base : p.base;
     $('#cfg-model').value = (cfg && cfg.preset === k && cfg.model) ? cfg.model : p.model;
-    $('#cfg-hint').textContent = k === 'qwen'
-      ? '在阿里云百炼控制台创建 API Key（有免费额度）。'
+    $('#cfg-hint').textContent = k === 'silicon'
+      ? 'cloud.siliconflow.cn 手机号注册即送额度，「API 密钥」页新建一个，复制 sk- 开头那串。'
+      : k === 'qwen'
+      ? '在阿里云百炼控制台创建 API Key（需实名，每模型 100 万 tokens）。'
       : k === 'zhipu' ? '在智谱开放平台创建 API Key。'
       : k === 'ark' ? '模型名填火山方舟的「推理接入点 ID」（ep- 开头）。'
       : '填任意 OpenAI 兼容服务的地址与模型名。';
