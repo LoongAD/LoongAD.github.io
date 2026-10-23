@@ -1008,18 +1008,27 @@ body.nav-open { overflow: hidden; }
   .nav-toggle { display: grid; }
   /* 导航收起后，图标组要靠右，否则会挤在 logo 旁边 */
   .site-head .head-act { margin-left: auto; }
+  /* logo 与图标的热区（隐藏文字后 logo 只剩 26px 见方） */
+  .logo { min-height: 44px; min-width: 44px; }
+  .icon-btn { flex: 0 0 auto; width: 40px; height: 40px; }
+  .chip { height: 38px; }
+  .more { display: inline-block; padding: 5px 0; }
 }
 
 @media (max-width: 760px) {
   .btn { height: 44px; padding: 0 18px; font-size: 15px; }
   .btn.sm { height: 36px; padding: 0 12px; font-size: 12.5px; }
   .icon-btn { width: 40px; height: 40px; }
-  .chip { height: 36px; padding: 0 14px; font-size: 13px; }
+  .chip { height: 40px; padding: 0 14px; font-size: 13px; }
+  .btn.sm { min-height: 40px; }
   .seg button { padding: 10px 14px; }
   .quiz-opt { padding: 13px 14px; }
   input, textarea, select { font-size: 16px; }
   .stage svg { max-height: 58vh; }
   .stage-wrap { padding-top: 0; }
+  /* 参数标题在窄屏会顶到行尾，允许换行 */
+  .ctl-h { flex-wrap: wrap; }
+  .ctl-l { min-width: 0; }
 
   /* 滑块：手机上放大拇指热区 */
   input[type=range] { height: 34px; }
