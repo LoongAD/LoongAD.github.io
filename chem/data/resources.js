@@ -117,13 +117,13 @@ date: '2026-10-17'
 {
 title: '第七单元综合素质评价',
 category: '试卷',
-desc: '认识酸和碱：酸碱的性质、pH、中和反应。',
+desc: '常见的酸和碱：酸碱的性质、pH、中和反应。',
 file: 'https://loongad.github.io/chem-resources/files/试卷/第七单元综合素质评价.doc',
 format: 'DOC',
 date: '2026-10-17'
 },
 {
-title: '第七单元 认识酸和碱（原卷版）',
+title: '第七单元 常见的酸和碱（原卷版）',
 category: '试卷',
 desc: '单元测试卷·原卷，可直接打印给学生做。',
 file: 'https://loongad.github.io/chem-resources/files/试卷/第七单元 认识酸和碱（原卷版）.docx',
@@ -131,7 +131,7 @@ format: 'DOCX',
 date: '2026-10-17'
 },
 {
-title: '第七单元 认识酸和碱（解析版）',
+title: '第七单元 常见的酸和碱（解析版）',
 category: '试卷',
 desc: '单元测试卷·解析版，含答案与解析。',
 file: 'https://loongad.github.io/chem-resources/files/试卷/第七单元 认识酸和碱（解析版）.docx',
@@ -141,13 +141,13 @@ date: '2026-10-17'
 {
 title: '第八单元综合素质评价',
 category: '试卷',
-desc: '海洋化学资源的利用：海水晒盐、氯碱工业等。',
+desc: '海水中的化学：海水晒盐、海水制碱等。',
 file: 'https://loongad.github.io/chem-resources/files/试卷/第八单元综合素质评价.doc',
 format: 'DOC',
 date: '2026-10-17'
 },
 {
-title: '第八单元 海洋化学资源的利用（原卷版）',
+title: '第八单元 海水中的化学（原卷版）',
 category: '试卷',
 desc: '单元测试卷·原卷，可直接打印给学生做。',
 file: 'https://loongad.github.io/chem-resources/files/试卷/第八单元 海洋化学资料的利用（原卷版）.docx',
@@ -155,7 +155,7 @@ format: 'DOCX',
 date: '2026-10-17'
 },
 {
-title: '第八单元 海洋化学资源的利用（解析版）',
+title: '第八单元 海水中的化学（解析版）',
 category: '试卷',
 desc: '单元测试卷·解析版，含答案与解析。',
 file: 'https://loongad.github.io/chem-resources/files/试卷/第八单元 海洋化学资料的利用（解析版）.docx',

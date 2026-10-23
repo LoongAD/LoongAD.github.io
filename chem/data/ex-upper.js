@@ -1603,7 +1603,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 /* ---------------- K03 绿色化学制氧原理（跨学科实践3） ---------------- */
 (function () {
   const ROUTES = {
-    kmno4: { n: '加热高锰酸钾', eq: '2KMnO₄ =加热= K₂MnO₄ + MnO₂ + O₂↑', M: 158, per: 2, o2: 1,
+    kmno4: { n: '加热高锰酸钾', eq: '2KMnO₄ =△= K₂MnO₄ + MnO₂ + O₂↑', M: 158, per: 2, o2: 1,
              oMass: 128, waste: '锰酸钾、二氧化锰固体', heat: true, danger: '较低' },
     kclo3: { n: '氯酸钾 + MnO₂', eq: '2KClO₃ =MnO₂/加热= 2KCl + 3O₂↑', M: 122.5, per: 2, o2: 3,
              oMass: 96, waste: '氯化钾固体', heat: true, danger: '较高（受热易爆）' },
@@ -1835,7 +1835,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 
   window.EXPERIMENTS.push({
     id: 'k05', code: 'K05', title: '探究土壤酸碱性对植物生长的影响',
-    book: '下册', unit: '第七单元 认识酸和碱', kind: '跨学科实践',
+    book: '下册', unit: '第七单元 常见的酸和碱', kind: '跨学科实践',
     opening: '取一份土样测 pH，判断适合种什么，再算要撒多少熟石灰。',
     stageNote: '熟石灰用量按耕层 20 cm、每平方米提高 0.5 个 pH 约需 50 g 估算，实际应测土配方',
     init: () => ({ ph: 5.2, area: 20, lime: 0 }),

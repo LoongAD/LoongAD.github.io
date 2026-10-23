@@ -399,7 +399,7 @@ window.LAB_META = {
       'NaOH + HCl = NaCl + H₂O',
       'Ca(OH)₂ + 2HCl = CaCl₂ + 2H₂O',
       '2NaOH + CuSO₄ = Cu(OH)₂↓ + Na₂SO₄',
-      'Cu(OH)₂ =加热= CuO + H₂O'
+      'Cu(OH)₂ =△= CuO + H₂O'
     ],
     exam: [
       '检验 CO₂ 用澄清石灰水，不能用 NaOH 溶液 —— 后者反应了但看不见现象。',
@@ -502,7 +502,7 @@ window.LAB_META = {
       '高锰酸钾加热时试管口要放棉花，防止粉末进入导管。'
     ],
     eq: [
-      '2KMnO₄ =加热= K₂MnO₄ + MnO₂ + O₂↑',
+      '2KMnO₄ =△= K₂MnO₄ + MnO₂ + O₂↑',
       '2KClO₃ =MnO₂/加热= 2KCl + 3O₂↑',
       '2H₂O₂ =MnO₂= 2H₂O + O₂↑'
     ],

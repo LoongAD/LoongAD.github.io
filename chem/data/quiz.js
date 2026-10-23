@@ -145,7 +145,7 @@ const QUIZZES = [
 ,
 {
   id: 'unit7',
-  title: '第七单元 认识酸和碱 · 自测',
+  title: '第七单元 常见的酸和碱 · 自测',
   desc: '10 道题，覆盖酸的性质、碱的性质、酸碱度与中和反应。',
   questions: [
     { type: 'choice', q: '下列物质中属于酸的是（ ）',
@@ -181,7 +181,7 @@ const QUIZZES = [
 },
 {
   id: 'unit8',
-  title: '第八单元 海洋化学资源的利用 · 自测',
+  title: '第八单元 海水中的化学 · 自测',
   desc: '10 道题，覆盖海水晒盐、粗盐提纯、碳酸钠与碳酸氢钠。',
   questions: [
     { type: 'choice', q: '海水晒盐利用的原理是（ ）',
@@ -195,7 +195,7 @@ const QUIZZES = [
       answer: 1, explain: '碳酸钠俗称纯碱、苏打；小苏打是碳酸氢钠；烧碱是氢氧化钠。' },
     { type: 'choice', q: '下列关于碳酸氢钠的说法错误的是（ ）',
       options: ['A. 俗称小苏打', 'B. 可用于焙制糕点', 'C. 可用于治疗胃酸过多', 'D. 受热不分解'],
-      answer: 3, explain: '碳酸氢钠受热易分解：2NaHCO₃ =加热= Na₂CO₃ + H₂O + CO₂↑，所以 D 错误。' },
+      answer: 3, explain: '碳酸氢钠受热易分解：2NaHCO₃ =△= Na₂CO₃ + H₂O + CO₂↑，所以 D 错误。' },
     { type: 'choice', q: '除去粗盐溶液中混有的少量 MgCl₂，应加入（ ）',
       options: ['A. 稀盐酸', 'B. 氢氧化钠溶液', 'C. 氯化钠溶液', 'D. 硝酸银溶液'],
       answer: 1, explain: 'MgCl₂ + 2NaOH = Mg(OH)₂↓ + 2NaCl，过滤除去沉淀即可。' },
@@ -207,7 +207,7 @@ const QUIZZES = [
       explain: '蒸发时用玻璃棒不断搅拌，使液体受热均匀，防止局部过热导致液滴飞溅。' },
     { type: 'blank', q: '碳酸氢钠受热分解的化学方程式为____。',
       answer: ['2NaHCO3=Na2CO3+H2O+CO2', '2NaHCO3=Na2CO3+H2O+CO2↑', '2NaHCO₃=Na₂CO₃+H₂O+CO₂↑'],
-      explain: '2NaHCO₃ =加热= Na₂CO₃ + H₂O + CO₂↑，可用于检验 NaHCO₃ 与 Na₂CO₃。' },
+      explain: '2NaHCO₃ =△= Na₂CO₃ + H₂O + CO₂↑，可用于检验 NaHCO₃ 与 Na₂CO₃。' },
     { type: 'blank', q: '海水晒盐得到的母液叫苦卤，其中含量较多的盐除 NaCl 外，还有____（写一种）。',
       answer: ['MgCl2', 'MgCl₂', '氯化镁', 'MgSO4', '硫酸镁'],
       explain: '苦卤中主要含 MgCl₂、MgSO₄ 等，是提取镁和溴的原料。' },
@@ -233,7 +233,7 @@ const QUIZZES = [
       options: ['A. 铜', 'B. 银', 'C. 锌', 'D. 金'],
       answer: 2, explain: '只有排在氢前面的金属才能置换出酸中的氢，锌在氢前，铜、银、金在氢后。' },
     { type: 'choice', q: '工业炼铁的主要反应原理是（ ）',
-      options: ['A. Fe₂O₃ + 3CO =高温= 2Fe + 3CO₂', 'B. Fe + CuSO₄ = FeSO₄ + Cu', 'C. 2Fe + 3O₂ =点燃= Fe₂O₃', 'D. FeO + H₂ =加热= Fe + H₂O'],
+      options: ['A. Fe₂O₃ + 3CO =高温= 2Fe + 3CO₂', 'B. Fe + CuSO₄ = FeSO₄ + Cu', 'C. 2Fe + 3O₂ =点燃= Fe₂O₃', 'D. FeO + H₂ =△= Fe + H₂O'],
       answer: 0, explain: '高炉炼铁用一氧化碳还原氧化铁：Fe₂O₃ + 3CO =高温= 2Fe + 3CO₂。' },
     { type: 'choice', q: '下列防锈措施中，错误的是（ ）',
       options: ['A. 自行车链条涂油', 'B. 铁栏杆刷漆', 'C. 用钢丝球擦洗铝锅表面的氧化膜', 'D. 铁制品表面镀锌'],

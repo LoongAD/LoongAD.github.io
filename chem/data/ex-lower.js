@@ -16,7 +16,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 
   window.EXPERIMENTS.push({
     id: 'd7-01', code: 'D7-01', title: '酸碱指示剂',
-    book: '下册', unit: '第七单元 认识酸和碱', kind: '教材演示',
+    book: '下册', unit: '第七单元 常见的酸和碱', kind: '教材演示',
     opening: '选一种溶液，分别滴加紫色石蕊和无色酚酞，比较颜色变化。',
     stageNote: '石蕊：遇酸变红、遇碱变蓝；酚酞：遇碱变红、遇酸不变色',
     init: () => ({ sol: 'hcl', litmus: false, phenol: false, tried: {} }),
@@ -112,7 +112,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 
   window.EXPERIMENTS.push({
     id: 'd7-02', code: 'D7-02', title: '溶液酸碱度的检验',
-    book: '下册', unit: '第七单元 认识酸和碱', kind: '教材演示',
+    book: '下册', unit: '第七单元 常见的酸和碱', kind: '教材演示',
     opening: '用玻璃棒蘸取溶液滴在 pH 试纸上，与标准比色卡对照读数。',
     stageNote: 'pH < 7 酸性，pH = 7 中性，pH > 7 碱性；试纸不能先用水润湿',
     init: () => ({ sol: 'hcl', wet: false, tested: false, ph: null }),
@@ -207,7 +207,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 
   window.EXPERIMENTS.push({
     id: 'd7-03', code: 'D7-03', title: '中和反应',
-    book: '下册', unit: '第七单元 认识酸和碱', kind: '教材演示',
+    book: '下册', unit: '第七单元 常见的酸和碱', kind: '教材演示',
     opening: '先投料，再滴酚酞，然后逐滴加盐酸，直到红色恰好褪去。',
     stageNote: '液面按 1 g/mL 示意，不表示真实密度；数值为教学模型参数',
     init: () => ({ fed: false, naoh: 0.5, pct: 2, dropG: 0.5, phenol: false, acid: 0, vad: 0, done: false }),
@@ -375,7 +375,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 
   window.EXPERIMENTS.push({
     id: 'd7-04', studentExp: 7, code: 'D7-04', title: '酸的化学性质',
-    book: '下册', unit: '第七单元 认识酸和碱', kind: '课标必做',
+    book: '下册', unit: '第七单元 常见的酸和碱', kind: '课标必做',
     opening: '依次试六组，归纳酸能与哪几类物质反应。',
     stageNote: '酸的五个通性：指示剂、活泼金属、金属氧化物、碱、某些盐',
     init: () => ({ done: {} }),
@@ -447,7 +447,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 
   window.EXPERIMENTS.push({
     id: 'd8-01', studentExp: 8, code: 'D8-01', title: '粗盐中难溶性杂质的去除',
-    book: '下册', unit: '第八单元 海洋化学资源的利用', kind: '课标必做',
+    book: '下册', unit: '第八单元 海水中的化学', kind: '课标必做',
     opening: '按「溶解 → 过滤 → 蒸发 → 计算产率」四步操作。',
     stageNote: '粗盐中的泥沙不溶于水，可用过滤除去；NaCl 溶于水，蒸发结晶回收',
     init: () => ({ step: 0, water: 30, yield: null }),
@@ -760,7 +760,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 
   window.EXPERIMENTS.push({
     id: 'd8-02', code: 'D8-02', title: '测定鸡蛋壳中碳酸钙的含量',
-    book: '下册', unit: '第八单元 海洋化学资源的利用', kind: '课标必做', studentExp: 10,
+    book: '下册', unit: '第八单元 海水中的化学', kind: '课标必做', studentExp: 10,
     opening: '称蛋壳 → 加足量稀盐酸 → 冷却后再称 → 用质量差算碳酸钙含量。',
     stageNote: '用质量差法：减少的质量就是逸出的 CO₂；必须反应完全并冷却到室温再称量',
     init: () => ({ egg: 3.0, m1: null, m2: null, reacted: false, result: null }),
@@ -922,7 +922,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 
   window.EXPERIMENTS.push({
     id: 'd7-05', studentExp: 7, code: 'D7-05', title: '碱的化学性质',
-    book: '下册', unit: '第七单元 认识酸和碱', kind: '课标必做',
+    book: '下册', unit: '第七单元 常见的酸和碱', kind: '课标必做',
     opening: '取一种碱溶液，依次检验它跟指示剂、酸、非金属氧化物、盐的反应。',
     stageNote: '碱液均为 10 mL；盐酸 0.10 mol/L，每滴 0.5 mL；pH 为计算值',
     init: () => ({ base: 'naoh', litmus: false, phenol: false, drops: 0, co2: 0, cuso4: false, done: {} }),
@@ -1124,7 +1124,7 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
 
   window.EXPERIMENTS.push({
     id: 'k06', code: 'K06', title: '制备五水硫酸铜晶体',
-    book: '下册', unit: '第八单元 海洋化学资源的利用', kind: '跨学科实践',
+    book: '下册', unit: '第八单元 海水中的化学', kind: '跨学科实践',
     opening: '50 g 水加 30 g 硫酸铜，先加热让它全溶，再降温看晶体析出。',
     stageNote: '溶解度按教材数据插值；析出量按 CuSO₄ 计，未折算结晶水',
     init: () => ({ T: 20, dissolved: false, cooled: false, seed: false }),
