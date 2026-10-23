@@ -428,23 +428,22 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
   });
 })();
 
-/* ---------------- P18-04 测量小灯泡的电功率 ---------------- */
+/* ---------------- P17-03 伏安法测电阻 ---------------- */
 (function () {
-  const RATED_U = 2.5, RATED_I = 0.3;
+  const R_FIX = 8.33;                             // 定值电阻约 8.3 Ω
   window.EXPERIMENTS.push({
-    id: 'p18-04', code: 'P18-04', title: '测量小灯泡的电功率',
-    book: '九年级全一册', unit: '第十八章 电功率', kind: '学生实验',
-    opening: '调节滑动变阻器，让灯泡两端电压变化，观察亮度并算功率。',
-    stageNote: '额定电压 2.5 V，额定电流 0.3 A，额定功率 0.75 W',
-    init: () => ({ U: 2.5 }),
-    svg: `<svg viewBox="0 0 460 400" role="img" aria-label="小灯泡电功率">
+    id: 'p17-03', code: 'P17-03', title: '伏安法测电阻',
+    book: '九年级全一册', unit: '第十七章 欧姆定律', kind: '学生实验',
+    opening: '调节滑动变阻器改变定值电阻两端电压，读出电流，用 R = U/I 算出电阻。',
+    stageNote: '原理 R = U / I；滑动变阻器保护电路并实现多次测量',
+    init: () => ({ U: 1.5, logs: [] }),
+    svg: `<svg viewBox="0 0 460 400" role="img" aria-label="伏安法测电阻">
       <text x="230" y="26" font-size="11" fill="var(--muted)" text-anchor="middle"
-            font-family="var(--f-sans)">电压表并联在灯泡两端，滑动变阻器串联限流</text>
+            font-family="var(--f-sans)">电压表并联在待测电阻两端，电流表串联在电路中</text>
 
       <g id="circuit"></g>
-      <g id="bulbG"></g>
 
-      <text id="pTxt" x="230" y="322" font-size="20" fill="var(--accent)" text-anchor="middle"
+      <text id="rTxt" x="230" y="322" font-size="20" fill="var(--accent)" text-anchor="middle"
             font-family="var(--f-num)">—</text>
       <text id="stateTxt" x="230" y="350" font-size="12" fill="var(--ink)" text-anchor="middle"
             font-family="var(--f-sans)">—</text>
@@ -452,65 +451,70 @@ window.EXPERIMENTS = window.EXPERIMENTS || [];
             font-family="var(--f-sans)">—</text>
     </svg>`,
     draw(s, el) {
-      const R = 8.33;                             // 2.5 / 0.3
-      const I = s.U / R;
-      const P = s.U * I;
-      const bright = Math.min(1, P / 0.75);
-
-      el.querySelector('#bulbG').innerHTML =
-        window.Parts.bulb({ x: 150, y: 90, on: s.U > 1.2, r: 17 }) +
-        `<text x="150" y="128" font-size="9" fill="var(--muted)" text-anchor="middle"
-           font-family="var(--f-sans)">L（2.5V 0.3A）</text>`;
+      const I = s.U / R_FIX;
 
       el.querySelector('#circuit').innerHTML = `
         <rect x="60" y="76" width="180" height="150" fill="none" stroke="var(--ink)" stroke-width="1.6"/>
         ${window.Parts.battery({ x: 105, y: 218 })}
-        ${window.Parts.rheostat({ x: 258, y: 150, w: 100, pos: (s.U - 0.5) / 3 })}
+        <rect x="122" y="80" width="56" height="20" fill="var(--bg)" stroke="var(--ink)" stroke-width="1.4"/>
+        <path d="M106 90 h16 M178 90 h32" stroke="var(--ink)" stroke-width="1.4"/>
+        ${window.Parts.rheostat({ x: 258, y: 150, w: 100, pos: (s.U - 0.5) / 3.5 })}
         <path d="M240 150 h18" stroke="var(--ink)" stroke-width="1.4"/>
         ${window.Parts.meter({ x: 246, y: 96, label: 'A', value: I.toFixed(2) + 'A', w: 52 })}
         <text x="150" y="58" font-size="8.5" fill="var(--muted)" text-anchor="middle"
               font-family="var(--f-sans)">V ${s.U.toFixed(1)}V</text>
-        <path d="M134 90 h-36 v-20" fill="none" stroke="var(--ink)" stroke-width="1.1"/>`;
+        <path d="M150 80 v-16 M136 64 h28" fill="none" stroke="var(--ink)" stroke-width="1.1"/>
+        <text x="150" y="122" font-size="9" fill="var(--muted)" text-anchor="middle"
+              font-family="var(--f-sans)">R（待测定值电阻）</text>`;
 
-      el.querySelector('#pTxt').textContent = `P = ${P.toFixed(2)} W`;
-      el.querySelector('#stateTxt').textContent = Math.abs(s.U - RATED_U) < 0.05
-        ? '正常发光（额定电压下）'
-        : s.U > RATED_U ? '比正常亮，长时间会烧坏' : '比正常暗';
+      el.querySelector('#rTxt').textContent = `R = U/I = ${(s.U / I).toFixed(2)} Ω`;
+      el.querySelector('#stateTxt').textContent =
+        `U = ${s.U.toFixed(1)} V，I = ${I.toFixed(2)} A`;
       el.querySelector('#noteTxt').textContent =
-        `P = UI = ${s.U.toFixed(1)} × ${I.toFixed(2)} = ${P.toFixed(2)} W，亮度约 ${(bright * 100).toFixed(0)}%`;
+        `R = U/I = ${s.U.toFixed(1)} ÷ ${I.toFixed(2)} ≈ ${R_FIX.toFixed(1)} Ω（定值电阻，多次测量取平均可减小误差）`;
     },
     controls(s) {
       return [{
-        type: 'range', id: 'U', label: '① 灯泡两端电压', min: 0.5, max: 3, step: 0.1, unit: ' V',
+        type: 'range', id: 'U', label: '① 待测电阻两端电压', min: 0.5, max: 4, step: 0.1, unit: ' V',
         get: st => st.U, fmt: v => v.toFixed(1), set: (st, v) => { st.U = v; }
       }];
     },
-    actLabels: { measure: '读电表并计算', reset: '重置' },
+    actLabels: { measure: '记录一组数据', reset: '重置' },
     secondary: ['reset'],
     actions: {
       measure(s, api) {
-        const I = s.U / 8.33;
-        const P = s.U * I;
-        api.say(`U = ${s.U.toFixed(1)} V，I = ${I.toFixed(2)} A，P = UI = <b>${P.toFixed(2)} W</b>。<br>
-          ${Math.abs(s.U - 2.5) < 0.05 ? '此时为额定功率 0.75 W，灯泡正常发光。' : s.U > 2.5 ? '高于额定电压，实际功率大于额定功率。' : '低于额定电压，实际功率小于额定功率。'}`, 'ok');
-        api.conclude('额定功率与实际功率', [
-          '<b>额定电压</b>：用电器正常工作时的电压；<b>额定功率</b>：额定电压下的功率。',
-          '<b>P = UI = I²R = U²/R</b>，三个公式在纯电阻电路中通用。',
-          '实际电压等于额定电压时，实际功率等于额定功率，正常发光。',
-          '实际电压高于额定电压，实际功率变大，灯变亮，长期会烧坏。',
-          '实际电压低于额定电压，实际功率变小，灯变暗。',
-          '测量原理：伏安法测 P = UI；滑动变阻器用来改变灯泡两端电压。'
-        ]);
+        const I = s.U / R_FIX;
+        const R = s.U / I;
+        s.logs.push({ U: s.U, I: I, R: R });
+        const avg = s.logs.reduce((a, b) => a + b.R, 0) / s.logs.length;
+        api.say(`第 ${s.logs.length} 次：U = ${s.U.toFixed(1)} V，I = ${I.toFixed(2)} A，R = U/I = <b>${R.toFixed(2)} Ω</b>。
+          已测 ${s.logs.length} 组，平均值 <b>${avg.toFixed(2)} Ω</b>。`, 'ok');
+        if (s.logs.length >= 2) {
+          api.conclude('伏安法测电阻', [
+            '<b>原理：R = U / I</b>，用电压表测 U，电流表测 I，算出电阻。',
+            '滑动变阻器的作用：<b>保护电路</b>、改变待测电阻两端电压，实现<b>多次测量</b>。',
+            '<b>定值电阻</b>多次测量取平均值，可以减小误差。',
+            '若换成小灯泡：灯丝温度升高电阻变大，<b>不能</b>简单取平均。',
+            '连接电路时开关要断开，滑动变阻器先调到最大阻值；电压表并联、电流表串联，注意量程与正负接线柱。',
+            '欧姆定律变形：R = U/I 是电阻的测量式，电阻是导体本身的属性，与 U、I 无关。'
+          ]);
+        } else {
+          api.conclude('伏安法测电阻', [
+            '<b>原理：R = U / I</b>，用电压表测 U，电流表测 I，算出电阻。',
+            '滑动变阻器的作用：<b>保护电路</b>、改变待测电阻两端电压，实现<b>多次测量</b>。',
+            '再测几组数据取平均值，可以减小误差。'
+          ]);
+        }
       },
-      reset(s, api) { s.U = 2.5; api.clearConcl(); api.say('已重置。'); }
+      reset(s, api) { s.U = 1.5; s.logs = []; api.clearConcl(); api.say('已重置，数据清空。'); }
     },
     hud(s) {
-      const I = s.U / 8.33;
+      const I = s.U / R_FIX;
       return [
         { label: '电压 U', value: s.U.toFixed(1) + ' V' },
         { label: '电流 I', value: I.toFixed(2) + ' A' },
-        { label: '功率 P', value: (s.U * I).toFixed(2) + ' W', hi: true },
-        { label: '状态', value: Math.abs(s.U - 2.5) < 0.05 ? '正常' : s.U > 2.5 ? '偏亮' : '偏暗' }
+        { label: '电阻 R', value: (s.U / I).toFixed(2) + ' Ω', hi: true },
+        { label: '已测组数', value: String(s.logs.length) }
       ];
     }
   });
