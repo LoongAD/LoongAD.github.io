@@ -118,6 +118,7 @@
             <a href="knowledge.html">知识点</a>
             <a href="resources.html">资料</a>
             <a href="quiz.html" class="hide-sm">自测</a>
+            <a href="solve.html">解题</a>
           </nav>
           <div class="head-act">
             <a class="icon-btn" href="search.html" aria-label="搜索" title="搜索">

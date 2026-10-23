@@ -89,6 +89,28 @@
   }
 }
 
+/* 手动切到深色：浅色系统下也生效（配合头部开关） */
+:root[data-theme="dark"] {
+    --paper:     #14130f;
+    --paper-2:   #1a1915;
+    --paper-3:   #211f1a;
+    --ink:       #f0ece2;
+    --ink-2:     #cec8bb;
+    --muted:     #918a7c;
+    --faint:     #6d675c;
+    --line:      #302d26;
+    --line-2:    #26241e;
+    --accent:    #e04b5c;
+    --accent-2:  #f06a79;
+    --accent-bg: #2a1619;
+    --accent-line:#4a2229;
+    --ok-bg:     #16241c;
+    --warn-bg:   #2a2113;
+    --bad-bg:    #2b1614;
+    --info-bg:   #16232b;
+}
+
+
 *, *::before, *::after { box-sizing: border-box; }
 
 html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
@@ -918,3 +940,91 @@ input:focus-visible, button:focus-visible, a:focus-visible {
 .eh-t { font-size: 16px; font-weight: 700; }
 .eh-s { color: var(--muted); margin: 6px 0 18px; font-size: 13px; }
 .eh-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* ============================================================
+   移动端增强（2026-10）
+   触控目标、安全区、抽屉导航、防 iOS 聚焦放大
+   ============================================================ */
+
+* { -webkit-tap-highlight-color: transparent; }
+
+img, video { max-width: 100%; height: auto; }
+
+.btn:active, .icon-btn:active, .chip:active, .quiz-opt:active, .seg button:active {
+  transform: scale(.985);
+}
+
+.site-foot { padding-bottom: calc(var(--s-7) + env(safe-area-inset-bottom, 0px)); }
+
+/* ---- 抽屉导航 ---- */
+.nav-toggle { display: none; }
+.nav-mask {
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(26,24,21,.34);
+  opacity: 0; pointer-events: none; transition: opacity .18s;
+}
+.nav-drawer {
+  position: fixed; z-index: 61; top: 0; right: 0; bottom: 0;
+  width: min(80vw, 310px);
+  background: var(--paper-2);
+  border-left: 1px solid var(--line);
+  box-shadow: -12px 0 32px rgba(0,0,0,.10);
+  transform: translateX(103%);
+  transition: transform .22s cubic-bezier(.32,.72,0,1);
+  display: flex; flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+body.nav-open .nav-mask { opacity: 1; pointer-events: auto; }
+body.nav-open .nav-drawer { transform: none; }
+body.nav-open { overflow: hidden; }
+
+.nd-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 12px 12px 18px; border-bottom: 1px solid var(--line);
+  height: var(--header-h);
+}
+.nd-title { font-weight: 800; font-size: var(--t-md); letter-spacing: .04em; }
+.nd-x {
+  width: 40px; height: 40px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: transparent; color: var(--muted); font-size: 19px; line-height: 1;
+}
+.nd-list { display: flex; flex-direction: column; padding: 8px 10px; overflow-y: auto; }
+.nd-list a {
+  padding: 14px 12px; border-radius: var(--radius);
+  color: var(--ink-2); font-size: 16px; font-weight: 600;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nd-list a.on { color: var(--accent); background: var(--accent-bg); }
+.nd-list a::after { content: "→"; color: var(--faint); font-weight: 400; }
+.nd-foot {
+  margin-top: auto; display: flex; gap: 8px; padding: 12px 18px 18px;
+  border-top: 1px solid var(--line);
+}
+.nd-foot .btn { flex: 1; }
+
+@media (max-width: 820px) {
+  html.js-nav .site-nav { display: none; }
+  .nav-toggle { display: grid; }
+  /* 导航收起后，图标组要靠右，否则会挤在 logo 旁边 */
+  .site-head .head-act { margin-left: auto; }
+}
+
+@media (max-width: 760px) {
+  .btn { height: 44px; padding: 0 18px; font-size: 15px; }
+  .btn.sm { height: 36px; padding: 0 12px; font-size: 12.5px; }
+  .icon-btn { width: 40px; height: 40px; }
+  .chip { height: 36px; padding: 0 14px; font-size: 13px; }
+  .seg button { padding: 10px 14px; }
+  .quiz-opt { padding: 13px 14px; }
+  input, textarea, select { font-size: 16px; }
+  .stage svg { max-height: 58vh; }
+  .stage-wrap { padding-top: 0; }
+
+  /* 滑块：手机上放大拇指热区 */
+  input[type=range] { height: 34px; }
+  input[type=range]::-webkit-slider-thumb { width: 24px; height: 24px; margin-top: -10.5px; }
+  input[type=range]::-moz-range-thumb { width: 22px; height: 22px; }
+
+  .site-head .wrap { gap: 10px; }
+}
