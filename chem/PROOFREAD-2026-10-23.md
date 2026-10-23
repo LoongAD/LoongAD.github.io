@@ -63,3 +63,14 @@
 - 教材目录结构：**已 100% 对齐**鲁教版 2024 版。
 - 知识点表述、方程式、实验现象：**已校对并修正**，无科学性错误遗留。
 - 全部 8 个数据文件通过 Node.js 语法校验。
+
+---
+
+## 八、部署状态（2026-10-23 09:55 补记）
+
+- 本次校对涉及的 8 个数据文件（`kd-upper.js`、`kd-lower.js`、`quiz.js`、`resources.js`、`meta.js`、`kd-practice.js`、`ex-upper.js`、`ex-lower.js`）与本报告已通过 GitHub Contents/Trees API 推送至 `LoongAD/LoongAD.github.io`（commit `b04234e`）。
+- GitHub Pages 构建已通过（status: built），线上 `https://loongad.github.io/chem/` 抽验正常：
+  - knowledge 页渲染出「常见的酸和碱 / 海水中的化学 / 海水“制碱” / 钢铁的锈蚀与防护 / 化学与能源开发 / 化学与材料研制 / pH 小于 5.6 / 仰视读数偏小」；
+  - quiz 页标题为「第七单元 常见的酸和碱 · 自测」「第八单元 海水中的化学 · 自测」；
+  - resources 页显示标题已更新；下载链接文件名仍为旧命名（托管文件名未变，已知限制）。
+- 本地 `chemistry 数据文件` 与线上 blob 哈希一致。
