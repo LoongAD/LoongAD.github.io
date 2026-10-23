@@ -379,12 +379,75 @@
   }
 
   /* ---------------- 设置 ---------------- */
+  function formCfg() {
+    return {
+      preset: $('#cfg-preset').value,
+      base: $('#cfg-base').value.trim(),
+      model: $('#cfg-model').value.trim(),
+      key: $('#cfg-key').value.trim()
+    };
+  }
+  function cfgMsg(text, kind) {
+    var el = $('#cfg-msg');
+    el.textContent = text || '';
+    el.className = 'sv-cfg-msg' + (kind ? ' ' + kind : '');
+  }
+
+  /* 用表单里的值直接探一次，不消耗真题目、不用先保存 */
+  function testConn() {
+    var c = formCfg();
+    if (!c.base || !c.model) { cfgMsg('接口地址和模型名不能空', 'bad'); return; }
+    if (!c.key) { cfgMsg('API Key 还没填', 'bad'); return; }
+    if (!/^https?:\/\//.test(c.base)) { cfgMsg('接口地址要以 https:// 开头', 'bad'); return; }
+
+    var btn = $('#btn-cfg-test');
+    btn.disabled = true;
+    cfgMsg('正在连接…', '');
+
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 25000);
+
+    fetch(c.base.replace(/\/+$/, '') + '/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + c.key },
+      body: JSON.stringify({
+        model: c.model,
+        max_tokens: 8,
+        messages: [{ role: 'user', content: '只回复两个字：正常' }]
+      }),
+      signal: ctrl.signal
+    }).then(function (r) {
+      clearTimeout(timer);
+      if (r.ok) return r.json();
+      return r.text().then(function (t) {
+        var m = '连接失败（' + r.status + '）';
+        if (r.status === 401 || r.status === 403) m += '：密钥无效，或这个 key 不属于当前服务商';
+        else if (r.status === 404) m += '：地址或模型名不对';
+        else if (r.status === 429) m += '：额度用完或请求太频繁';
+        else if (t) m += '：' + t.slice(0, 100);
+        throw new Error(m);
+      });
+    }).then(function (j) {
+      var c2 = j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content;
+      if (Array.isArray(c2)) c2 = c2.map(function (x) { return x.text || ''; }).join('');
+      cfgMsg('连接成功 · 模型回了「' + String(c2 || '').trim().slice(0, 20) + '」', 'ok');
+    }).catch(function (e) {
+      clearTimeout(timer);
+      if (e.name === 'AbortError') cfgMsg('超时了（25 秒），检查网络或换个服务商', 'bad');
+      else if (String(e.message).indexOf('Failed to fetch') >= 0) cfgMsg('请求发不出去：可能是网络或该服务不允许网页调用', 'bad');
+      else cfgMsg(e.message || '连接失败', 'bad');
+    }).then(function () {
+      btn.disabled = false;
+    });
+  }
+
   function openCfg(focus) {
     var cfg = getCfg();
     var sel = $('#cfg-preset');
     sel.value = cfg.preset || 'qwen';
     applyPreset(sel.value, cfg);
     $('#cfg-key').value = cfg.key || '';
+    cfgMsg('');
     $('#cfg-sheet').hidden = false;
     document.body.classList.add('sv-lock');
     if (focus) $('#cfg-key').focus();
@@ -473,13 +536,9 @@
     $('#cfg-preset').addEventListener('change', function () {
       applyPreset(this.value, null);
     });
+    $('#btn-cfg-test').addEventListener('click', testConn);
     $('#btn-cfg-save').addEventListener('click', function () {
-      var c = {
-        preset: $('#cfg-preset').value,
-        base: $('#cfg-base').value.trim(),
-        model: $('#cfg-model').value.trim(),
-        key: $('#cfg-key').value.trim()
-      };
+      var c = formCfg();
       if (!c.base || !c.model) { alert('接口地址和模型名都要填'); return; }
       if (!/^https?:\/\//.test(c.base)) { alert('接口地址要以 https:// 开头'); return; }
       setCfg(c);
