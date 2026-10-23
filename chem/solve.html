@@ -37,6 +37,9 @@
 }
 .sv-shot { background: var(--paper-3); border-radius: var(--radius); overflow: hidden; margin-bottom: 12px; }
 .sv-shot img { display: block; width: 100%; max-height: 46vh; object-fit: contain; }
+/* 出结果后把图收小，让讲解更靠前 */
+.sv-card.is-done .sv-shot img { max-height: 90px; }
+.sv-card.is-done .sv-shot { margin-bottom: 10px; }
 .sv-row { display: flex; gap: 8px; }
 .sv-row .btn { flex: 1; }
 .sv-row .btn.primary { flex: 1.4; }
@@ -117,7 +120,7 @@
   font-size: 13px; line-height: 1.75; color: var(--muted);
 }
 .sv-ans {
-  display: flex; gap: 10px; align-items: baseline;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: baseline;
   margin: 16px 0 0; padding: 12px 13px;
   background: var(--accent-bg); border: 1px solid var(--accent-line);
   border-radius: var(--radius); font-size: 15.5px; line-height: 1.8; color: var(--ink);

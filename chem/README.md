@@ -82,7 +82,8 @@ python3 -m http.server 8000
 
 | 服务商 | 接口地址 | 模型名 |
 |---|---|---|
-| 通义千问（阿里云百炼） | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-vl-max-latest` |
+| 硅基流动 | `https://api.siliconflow.cn/v1` | `Qwen/Qwen2.5-VL-7B-Instruct` |
+| 通义千问（阿里云百炼） | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen3-vl-plus` |
 | 智谱 GLM-4V | `https://open.bigmodel.cn/api/paas/v4` | `glm-4v-plus` |
 | 火山方舟 | `https://ark.cn-beijing.volces.com/api/v3` | 推理接入点 ID（`ep-` 开头） |
 | 其他 | 任意 OpenAI 兼容 `/chat/completions` | 自填 |

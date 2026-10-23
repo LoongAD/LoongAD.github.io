@@ -15,14 +15,24 @@
   /* ---------------- 接口预设 ---------------- */
   var PRESETS = {
     silicon:{ base: 'https://api.siliconflow.cn/v1',                    model: 'Qwen/Qwen2.5-VL-7B-Instruct', name: '硅基流动（注册最简单）' },
-    qwen:   { base: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen-vl-max-latest', name: '通义千问（阿里云百炼）' },
+    qwen:   { base: 'https://dashscope.aliyuncs.com/compatible-mode/v1', model: 'qwen3-vl-plus', name: '通义千问（阿里云百炼）' },
     zhipu:  { base: 'https://open.bigmodel.cn/api/paas/v4',              model: 'glm-4v-plus',        name: '智谱 GLM-4V' },
     ark:    { base: 'https://ark.cn-beijing.volces.com/api/v3',          model: '',                   name: '火山方舟（需填推理接入点 ID）' },
     custom: { base: '',                                                  model: '',                   name: '自定义（OpenAI 兼容）' }
   };
 
+  var CFG_V = 2;
   function getCfg() {
-    try { return JSON.parse(localStorage.getItem(CFG_KEY)) || {}; } catch (e) { return {}; }
+    var c = {};
+    try { c = JSON.parse(localStorage.getItem(CFG_KEY)) || {}; } catch (e) { return {}; }
+    /* 旧配置迁移：模型名随预设升级，保留 key 与地址 */
+    if (c && c.preset && PRESETS[c.preset] && c.v !== CFG_V) {
+      var p = PRESETS[c.preset];
+      if (!c.model || c.model === 'qwen-vl-max-latest') c.model = p.model;
+      c.v = CFG_V;
+      try { localStorage.setItem(CFG_KEY, JSON.stringify(c)); } catch (e) {}
+    }
+    return c;
   }
   function setCfg(c) {
     try { localStorage.setItem(CFG_KEY, JSON.stringify(c)); } catch (e) {}
@@ -63,7 +73,12 @@
     /* 反应条件：=△= / =点燃= / =高温= / =通电= / =催化剂= */
     t = t.replace(/=(△|点燃|高温|通电|催化剂|光照)=/g,
       function (_, c) { return '<span class="eq-arw"><em>' + c + '</em>→</span>'; });
-    /* 化学式 */
+    /* 模型偶尔直接输出 Unicode 下标（H₂SO₄），统一转成 <sub> */
+    var SUB = { '₀': '0', '₁': '1', '₂': '2', '₃': '3', '₄': '4', '₅': '5', '₆': '6', '₇': '7', '₈': '8', '₉': '9' };
+    t = t.replace(/[₀-₉]+/g, function (m) {
+      return '<sub>' + m.split('').map(function (c) { return SUB[c]; }).join('') + '</sub>';
+    });
+    /* 化学式（ASCII 写法 H2SO4） */
     t = t.replace(/[A-Z][A-Za-z0-9()]{1,24}/g, function (m) {
       if (!/\d/.test(m)) return m;
       var r = fmtFormula(m);
@@ -128,7 +143,7 @@
     '}',
     '',
     '要求：',
-    '1. 看不清的地方，在 stem 里写「（图片此处不清）」，绝不编造数据或选项；',
+    '1. stem 只写图上真实存在的内容：图里没有 ABCD 选项就不要加选项，没有的数据不要补；实在看不清写「（图片此处不清）」；',
     '2. steps 写 2–5 步，一步只讲一件事，语言口语化，不要「首先/其次/最后」堆砌；',
     '3. 化学式、方程式必须准确，配平必须正确，条件不能漏；',
     '4. 计算题要写出代入的数据和单位；',
@@ -171,7 +186,8 @@
       if (!r.ok) {
         return r.text().then(function (t) {
           var msg = '接口返回 ' + r.status;
-          if (r.status === 401 || r.status === 403) msg = '密钥无效或没有权限，请到设置里检查';
+          if (r.status === 401) msg = '密钥无效，请到设置里检查';
+          else if (r.status === 403) msg = '这个模型你的账号没有权限：去控制台「模型广场」开通，或换一个模型名';
           else if (r.status === 404) msg = '接口地址或模型名不对，请到设置里检查';
           else if (r.status === 429) msg = '调用太频繁或额度用完了，稍后再试';
           else if (t) msg += '：' + t.slice(0, 120);
@@ -236,6 +252,8 @@
         '<div class="sv-disc">讲解由 AI 生成，仅供学习参考；发现错误请以课本和老师为准。</div>' +
       '</div>';
 
+    var pc = $('#preview-card');
+    if (pc && !pc.hidden) pc.classList.add('is-done');
     host.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     var ta = $('#stem-ta');
@@ -421,7 +439,8 @@
       if (r.ok) return r.json();
       return r.text().then(function (t) {
         var m = '连接失败（' + r.status + '）';
-        if (r.status === 401 || r.status === 403) m += '：密钥无效，或这个 key 不属于当前服务商';
+        if (r.status === 401) m += '：密钥无效，或这个 key 不属于当前服务商';
+        else if (r.status === 403) m += '：key 有效，但该模型未开通权限，换个模型名试试';
         else if (r.status === 404) m += '：地址或模型名不对';
         else if (r.status === 429) m += '：额度用完或请求太频繁';
         else if (t) m += '：' + t.slice(0, 100);
@@ -541,7 +560,10 @@
       var c = formCfg();
       if (!c.base || !c.model) { alert('接口地址和模型名都要填'); return; }
       if (!/^https?:\/\//.test(c.base)) { alert('接口地址要以 https:// 开头'); return; }
+      c.v = CFG_V;
       setCfg(c);
+      var tip = $('#cfg-tip');
+      if (tip) tip.hidden = true;
       closeCfg();
       if (state.img || state.text) analyze();
     });
